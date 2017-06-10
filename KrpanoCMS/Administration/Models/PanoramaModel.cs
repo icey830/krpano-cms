@@ -2,13 +2,11 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
-using KrpanoCMS.Administration.Utils;
 
 namespace KrpanoCMS.Administration.Models
 {
     public class PanoramaModel
     {
-        [HttpPostedFileExtensions(Extensions = "jpg")]
         [DataType(DataType.Upload)]
         [DisplayName("Medium Picture: ")]
         public HttpPostedFileBase MediumPicture { get; set; }
