@@ -47,6 +47,12 @@ h2 {
     margin-top: 40px;
 }
 
+.krpano-preview {
+    width: 100%;
+    height: 400px;
+    display: block;
+}
+
 .hidden-frame {
     display: none;
 }
