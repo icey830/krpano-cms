@@ -2,10 +2,21 @@
 <h2>CreatePano</h2>
 
 @{
-    var kor = @Url.Action("ExecuteCommandCreatePano", "Panorama") + "?id=" + ViewBag.PanoId;
+    var createPanoUrl = @Url.Action("ExecuteCommandCreatePano", "Panorama") + "?id=" + ViewBag.PanoId;
         }
-<a id="createPanoLink" href="@kor" class="btn btn-info">Create pano</a>
-
+<form class="create-panorama-form">
+    <label for="panoramaType">Panorama type:</label>
+    <select id="panoramaType" name="panoramaType" class="panorama-type">
+        <option value="sphere">sphere</option>
+        <option value="cylinder">cylinder</option>
+        <option value="flat">flat</option>
+    </select>
+    <label for="panoramaType">Horizontal field of view (0 - 360):</label>
+    <input type="text" id="panoramaHfov" name="panoramaHfov" value="360" />
+    <label for="panoramaType">Vertical field of view (0 - 180):</label>
+    <input type="text" id="panoramaVfov" name="panoramaVfov" value="180" />
+    <a id="createPanoLink" href="@createPanoUrl" class="btn btn-info">Create pano</a>
+</form>
 
 <iframe id="panoramaFrame" data-src="/Documents/Panoramas/@ViewBag.PanoId/index.html" class="hidden-frame"></iframe>
 
@@ -14,11 +25,18 @@
     $(function () {
         $('#createPanoLink').on('click', function (e) {
             e.preventDefault();
-            $.ajax(this.href)
-                .then(function () {
-                    var frame = $('#panoramaFrame');
-                    frame.addClass('visible').attr('src', frame.data('src'));
-                });
+            $.ajax({
+                url: this.href,
+                data: {
+                    type: $('#panoramaType').val(),
+                    hfov: $('#panoramaHfov').val(),
+                    vfov: $('#panoramaVfov').val()
+                }
+            })
+           .then(function () {
+                var frame = $('#panoramaFrame');
+                frame.addClass('visible').attr('src', frame.data('src'));
+           });
         });
     })
 </script>

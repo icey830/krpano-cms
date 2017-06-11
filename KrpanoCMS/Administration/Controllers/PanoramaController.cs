@@ -56,28 +56,12 @@ namespace KrpanoCMS.Administration.Controllers
         {
             if (photo != null)
             {
-                //string extension = Path.GetExtension(photo.FileName);
-                //FileUploader.Upload(photo, panorama.Id + extension);
-
                 panorama.PictureUrl = photo.FileName;
             }
 
             var claimsIdentity = User.Identity as ClaimsIdentity;
-            if (claimsIdentity != null)
-            {
-                // the principal identity is a claims identity.
-                // now we need to find the NameIdentifier claim
-                var userIdClaim = claimsIdentity.Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-                if (userIdClaim != null)
-                {
-                    var userIdValue = userIdClaim.Value;
-                }
-            }
-
-            panorama.AddedOn = DateTime.Now;
             panorama.UserId = claimsIdentity.GetUserId();
+            panorama.AddedOn = DateTime.Now;
 
             if (ModelState.IsValid)
             {
@@ -102,7 +86,7 @@ namespace KrpanoCMS.Administration.Controllers
             return View();
         }
 
-        public JsonResult ExecuteCommandCreatePano(int id)
+        public JsonResult ExecuteCommandCreatePano(int id, string type, int hfov, int vfov)
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -115,8 +99,21 @@ namespace KrpanoCMS.Administration.Controllers
             var krpanoPath = System.Web.HttpContext.Current.Server.MapPath(@"/Krpano");
             var krpanoImgPath = System.Web.HttpContext.Current.Server.MapPath(@"~/Documents/Panoramas/" + id + ".jpg");
 
-            var command = @"cd """ + krpanoPath + @""" && start krpanotools64.exe makepano -config=templates\flat.config """ + krpanoImgPath + @"""";
-            cmd.StandardInput.WriteLine(command);
+            var panoramaConfig = @" -config=templates\normal.config -panotype=" + type;
+            if(type == "cylinder" || type == "sphere")
+            {
+                panoramaConfig += @" -hfov=" + hfov;
+            }
+            if (type == "sphere")
+            {
+                panoramaConfig += @" -vfov=" + vfov;
+            }
+
+            cmd.StandardInput.WriteLine(@"cd """ + krpanoPath + @"""");
+            cmd.StandardInput.WriteLine(@"start krpanotools64.exe makepano"
+                + panoramaConfig
+                + @" -askforxmloverwrite=false"
+                + @" """ + krpanoImgPath + @"""");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
