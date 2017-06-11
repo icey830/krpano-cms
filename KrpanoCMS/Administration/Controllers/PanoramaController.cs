@@ -23,7 +23,7 @@ namespace KrpanoCMS.Administration.Controllers
         // GET: Panorama
         public ActionResult Index()
         {
-            return View(db.Panorama.ToList());
+            return View(db.Panorama.ToList().Where(item=>item.UserId == User.Identity.GetUserId()));
         }
 
         // GET: Panorama/Details/5

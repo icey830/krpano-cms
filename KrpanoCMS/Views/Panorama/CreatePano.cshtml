@@ -1,23 +1,41 @@
-﻿
-<h2>CreatePano</h2>
+﻿@{
+    var createPanoLink = @Url.Action("ExecuteCommandCreatePano", "Panorama") + "?id=" + ViewBag.PanoId;
+}
 
-@{
-    var kor = @Url.Action("ExecuteCommandCreatePano", "Panorama") + "?id=" + ViewBag.PanoId;
-        }
-<a id="createPanoLink" href="@kor" class="btn btn-info">Create pano</a>
+<div class="container">
 
+    <div class="row">
+        <div class="col-md-12">
+            
+            <h2>Let's create your pano!</h2>
 
-<iframe id="panoramaFrame" data-src="/Documents/Panoramas/@ViewBag.PanoId/index.html" class="hidden-frame"></iframe>
+            <a id="createPanoLink" href="@createPanoLink" class="btn btn-lg btn-info">Yes! Create my pano</a>
+
+            <img src="http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif.pagespeed.ce.DETazxsDgB.gif" width="200px" id="imgLoader" style="display: none;"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <iframe id="panoramaFrame" data-src="/Documents/Panoramas/@ViewBag.PanoId/index.html" src="/Documents/Panoramas/@ViewBag.PanoId/index.html" class="krpano-admin-preview hidden-frame"></iframe>
+        </div>
+    </div>
+</div>
 
 
 <script>
     $(function () {
         $('#createPanoLink').on('click', function (e) {
+
+            $("#imgLoader").css("display", "block");
             e.preventDefault();
             $.ajax(this.href)
                 .then(function () {
+                    $("#imgLoader").css("display", "none");
+
                     var frame = $('#panoramaFrame');
                     frame.addClass('visible').attr('src', frame.data('src'));
+
+
                 });
         });
     })
