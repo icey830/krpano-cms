@@ -21,6 +21,7 @@ input,
 select,
 textarea {
     max-width: 280px;
+    border-radius: 0 !important;
 }
 
 
@@ -29,12 +30,21 @@ textarea {
     border-color: #f1d942;
 }
 
-    .navbar-inverse .navbar-nav > li > a {
-        color: #0c0b0b;
-        font-size: 16px;
-        font-weight: bold;
-    }
+.jumbotron {
+    background-color: #f1d942;
+    border-top: 18px dashed black;
+    border-radius: 0 !important;
+}
 
+.navbar-inverse .navbar-nav > li > a {
+    color: #0c0b0b;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn {
+    border-radius: 0 !important;
+}
 
 h2 {
     margin: 30px 0 50px 0;
@@ -52,5 +62,16 @@ h2 {
 }
 
 .visible {
-    display: block;
+    display: block; 
+}
+
+
+.create-panorama-form label {
+    font-size: 16px;
+    margin: 30px 0 0;
+}
+
+
+#createPanoLink {
+    margin-top: 30px;
 }

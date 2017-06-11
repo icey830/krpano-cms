@@ -5,25 +5,39 @@
 
     <div class="row">
         <div class="col-md-12">
-            
-            <h2>Let's create your pano!</h2>
+
+            <h2>  We need some more information to create your perfect pano!</h2>
 
             <form class="create-panorama-form">
-                <label for="panoramaType">Panorama type:</label>
-                <select id="panoramaType" name="panoramaType" class="panorama-type">
-                    <option value="sphere">sphere</option>
-                    <option value="cylinder">cylinder</option>
-                    <option value="flat">flat</option>
-                </select>
-                <label for="panoramaType">Horizontal field of view (0 - 360):</label>
-                <input type="text" id="panoramaHfov" name="panoramaHfov" value="360" />
-                <label for="panoramaType">Vertical field of view (0 - 180):</label>
-                <input type="text" id="panoramaVfov" name="panoramaVfov" value="180" />
-            </form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="panoramaType">Panorama type:</label>
+                        <select id="panoramaType" name="panoramaType" class="panorama-type form-control">
+                            <option value="sphere">sphere</option>
+                            <option value="cylinder">cylinder</option>
+                            <option value="flat">flat</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="panoramaType">Horizontal field of view (0 - 360):</label>
+                        <input type="text" id="panoramaHfov" name="panoramaHfov" value="360" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="panoramaType">Vertical field of view (0 - 180):</label>
+                        <input type="text" id="panoramaVfov" name="panoramaVfov" value="180" class="form-control"/>
+                    </div>
+                </div>
+
+            </form> 
 
             <a id="createPanoLink" href="@createPanoLink" class="btn btn-lg btn-info">Yes! Create my pano</a>
 
-            <img src="http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif.pagespeed.ce.DETazxsDgB.gif" width="200px" id="imgLoader" style="display: none;"/>
+            <img src="http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif.pagespeed.ce.DETazxsDgB.gif" width="200px" id="imgLoader" style="display: none;" />
         </div>
     </div>
     <div class="row">
@@ -48,9 +62,9 @@
                 }
             })
            .then(function () {
-                $("#imgLoader").css("display", "none");
-                var frame = $('#panoramaFrame');
-                frame.addClass('visible').attr('src', frame.data('src'));
+               $("#imgLoader").css("display", "none");
+               var frame = $('#panoramaFrame');
+               frame.addClass('visible').attr('src', frame.data('src'));
            });
         });
     })
