@@ -172,6 +172,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Business\UserIdentity.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -208,6 +209,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\dog.jpg" />
+    <Content Include="Documents\Panoramas\0.jpg" />
+    <Content Include="Documents\Panoramas\0.png" />
+    <Content Include="Documents\Panoramas\1111111111.jpg" />
+    <Content Include="Documents\Panoramas\20k.jpg" />
+    <Content Include="Documents\Panoramas\432432.jpg" />
+    <Content Include="Documents\Panoramas\45435.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -219,6 +226,7 @@
     <Content Include="Krpano\krpanotools32.exe" />
     <Content Include="Krpano\krpanotools64.exe" />
     <Content Include="Krpano\license.txt" />
+    <Content Include="Krpano\pano.jpg" />
     <Content Include="Krpano\releasenotes.txt" />
     <Content Include="Krpano\templates\html\embedpano-inline-js-singleswf.html" />
     <Content Include="Krpano\templates\html\embedpano.html" />
@@ -700,7 +708,9 @@
     <Content Include="Krpano\templates\basicsettings.config" />
     <Content Include="Krpano\templates\convertdroplets.config" />
     <Content Include="Krpano\templates\defaultbuttons.skin" />
-    <Content Include="Krpano\templates\flat.config" />
+    <Content Include="Krpano\templates\flat.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Krpano\templates\html\tour_testingserver_macos" />
     <Content Include="Krpano\templates\multiframe.config" />
     <Content Include="Krpano\templates\multires.config" />
@@ -777,6 +787,7 @@
     <Content Include="Views\Panorama\Details.cshtml" />
     <Content Include="Views\Panorama\Edit.cshtml" />
     <Content Include="Views\Panorama\Index.cshtml" />
+    <Content Include="Views\Panorama\CreatePano.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,17 +20,15 @@ namespace KrpanoCMS.Controllers
     {
         public ActionResult Index()
         {
-            ExecuteCommand("makepano");
-
+           // ExecuteCommand();
 
             return View();
         }
 
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
-
 
             return View();
         }
@@ -42,45 +40,26 @@ namespace KrpanoCMS.Controllers
             return View();
         }
 
-        static void ExecuteCommand(string command)
+        static void ExecuteCommand()
         {
-            int exitCode;
-            ProcessStartInfo processInfo;
-            Process process;
-
-            var exePath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(@"/Krpano"), "krpanotools64.exe");
-            var imgPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(@"/Content/images"), "dog.jpg");
-            processInfo = new ProcessStartInfo(exePath, command + @" -config=templates\flat.config " + @"C:\Users\Fani\Documents\visual studio 2015\Projects\KrpanoCMS\KrpanoCMS\Krpano\cat.jpg");
-
-
-            processInfo.CreateNoWindow = true;
-            processInfo.UseShellExecute = false;
-            // *** Redirect the output ***
-            processInfo.RedirectStandardError = true;
-            processInfo.RedirectStandardOutput = true;
-            processInfo.WorkingDirectory = "/Krpano";
-
-
-            process = Process.Start(processInfo);
-            process.WaitForExit();
-
-            // *** Read the streams ***
-            // Warning: This approach can lead to deadlocks, see Edit #2
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            exitCode = process.ExitCode;
-
-            Debug.WriteLine("output>>" + (string.IsNullOrEmpty(output) ? "(none)" : output));
-            Debug.WriteLine("error>>" + (string.IsNullOrEmpty(error) ? "(none)" : error));
-            Debug.WriteLine("ExitCode: " + exitCode, "ExecuteCommand");
-            process.Close();
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            var krpanoPath = System.Web.HttpContext.Current.Server.MapPath(@"/Krpano");
+            var command = @"cd """ + krpanoPath +
+                          @""" && start krpanotools64.exe makepano -config=templates\flat.config dog.jpg";
+            cmd.StandardInput.WriteLine(command);
+            //cmd.StandardInput.WriteLine(@"ping abv.bg");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Debug.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
-        static void Main()
-        {
-            ExecuteCommand("echo testing");
-        }
 
         public static int Upload(HttpPostedFileBase photo, string customFileName)
         {

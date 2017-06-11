@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using KrpanoCMS;
 using KrpanoCMS.Rename;
+using Microsoft.AspNet.Identity;
 
 namespace KrpanoCMS.Administration.Controllers
 {
@@ -54,18 +58,67 @@ namespace KrpanoCMS.Administration.Controllers
             {
                 string extension = Path.GetExtension(photo.FileName);
                 FileUploader.Upload(photo, panorama.Id + extension);
-               // Utils.UploadPhoto(photo);
+
                 panorama.PictureUrl = photo.FileName;
             }
+
+
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            if (claimsIdentity != null)
+            {
+                // the principal identity is a claims identity.
+                // now we need to find the NameIdentifier claim
+                var userIdClaim = claimsIdentity.Claims
+                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim != null)
+                {
+                    var userIdValue = userIdClaim.Value;
+                }
+            }
+
+            var s = HttpContext.User == null ? string.Empty : HttpContext.User.Identity.GetUserId();
+
+            panorama.AddedOn = DateTime.Now;
+            panorama.UserId = claimsIdentity.GetUserId();
 
             if (ModelState.IsValid)
             {
                 db.Panorama.Add(panorama);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CreatePano", new { id = panorama.Id, userId = panorama.UserId });
             }
 
             return View(panorama);
+        }
+
+
+        public ActionResult CreatePano(int id, string userId)
+        {
+            ExecuteCommandCreatePano(id);
+
+            return View();
+        }
+
+        static void ExecuteCommandCreatePano(int id)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            var krpanoPath = System.Web.HttpContext.Current.Server.MapPath(@"/Krpano");
+            var krpanoImgPath = System.Web.HttpContext.Current.Server.MapPath(@"~/Documents/Panoramas/" + id + ".jpg");
+
+            var command = @"cd """ + krpanoPath + @""" && start krpanotools64.exe makepano -config=templates\flat.config """ +  krpanoImgPath + @"""";
+            cmd.StandardInput.WriteLine(command);
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Debug.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
         // GET: Panorama/Edit/5
