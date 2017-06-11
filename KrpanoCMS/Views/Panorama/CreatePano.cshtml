@@ -1,29 +1,43 @@
-﻿
-<h2>CreatePano</h2>
+﻿@{
+    var createPanoLink = @Url.Action("ExecuteCommandCreatePano", "Panorama") + "?id=" + ViewBag.PanoId;
+}
+<div class="container">
 
-@{
-    var createPanoUrl = @Url.Action("ExecuteCommandCreatePano", "Panorama") + "?id=" + ViewBag.PanoId;
-        }
-<form class="create-panorama-form">
-    <label for="panoramaType">Panorama type:</label>
-    <select id="panoramaType" name="panoramaType" class="panorama-type">
-        <option value="sphere">sphere</option>
-        <option value="cylinder">cylinder</option>
-        <option value="flat">flat</option>
-    </select>
-    <label for="panoramaType">Horizontal field of view (0 - 360):</label>
-    <input type="text" id="panoramaHfov" name="panoramaHfov" value="360" />
-    <label for="panoramaType">Vertical field of view (0 - 180):</label>
-    <input type="text" id="panoramaVfov" name="panoramaVfov" value="180" />
-    <a id="createPanoLink" href="@createPanoUrl" class="btn btn-info">Create pano</a>
-</form>
+    <div class="row">
+        <div class="col-md-12">
+            
+            <h2>Let's create your pano!</h2>
 
-<iframe id="panoramaFrame" data-src="/Documents/Panoramas/@ViewBag.PanoId/index.html" class="hidden-frame"></iframe>
+            <form class="create-panorama-form">
+                <label for="panoramaType">Panorama type:</label>
+                <select id="panoramaType" name="panoramaType" class="panorama-type">
+                    <option value="sphere">sphere</option>
+                    <option value="cylinder">cylinder</option>
+                    <option value="flat">flat</option>
+                </select>
+                <label for="panoramaType">Horizontal field of view (0 - 360):</label>
+                <input type="text" id="panoramaHfov" name="panoramaHfov" value="360" />
+                <label for="panoramaType">Vertical field of view (0 - 180):</label>
+                <input type="text" id="panoramaVfov" name="panoramaVfov" value="180" />
+            </form>
+
+            <a id="createPanoLink" href="@createPanoLink" class="btn btn-lg btn-info">Yes! Create my pano</a>
+
+            <img src="http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif.pagespeed.ce.DETazxsDgB.gif" width="200px" id="imgLoader" style="display: none;"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <iframe id="panoramaFrame" data-src="/Documents/Panoramas/@ViewBag.PanoId/index.html" src="/Documents/Panoramas/@ViewBag.PanoId/index.html" class="krpano-admin-preview hidden-frame"></iframe>
+        </div>
+    </div>
+</div>
 
 
 <script>
     $(function () {
         $('#createPanoLink').on('click', function (e) {
+            $("#imgLoader").css("display", "block");
             e.preventDefault();
             $.ajax({
                 url: this.href,
@@ -34,6 +48,7 @@
                 }
             })
            .then(function () {
+                $("#imgLoader").css("display", "none");
                 var frame = $('#panoramaFrame');
                 frame.addClass('visible').attr('src', frame.data('src'));
            });
