@@ -56,12 +56,11 @@ namespace KrpanoCMS.Administration.Controllers
         {
             if (photo != null)
             {
-                string extension = Path.GetExtension(photo.FileName);
-                FileUploader.Upload(photo, panorama.Id + extension);
+                //string extension = Path.GetExtension(photo.FileName);
+                //FileUploader.Upload(photo, panorama.Id + extension);
 
                 panorama.PictureUrl = photo.FileName;
             }
-
 
             var claimsIdentity = User.Identity as ClaimsIdentity;
             if (claimsIdentity != null)
@@ -77,8 +76,6 @@ namespace KrpanoCMS.Administration.Controllers
                 }
             }
 
-            var s = HttpContext.User == null ? string.Empty : HttpContext.User.Identity.GetUserId();
-
             panorama.AddedOn = DateTime.Now;
             panorama.UserId = claimsIdentity.GetUserId();
 
@@ -86,6 +83,11 @@ namespace KrpanoCMS.Administration.Controllers
             {
                 db.Panorama.Add(panorama);
                 db.SaveChanges();
+
+                string extension = Path.GetExtension(photo.FileName);
+                FileUploader.Upload(photo, panorama.Id + extension);
+
+                //return RedirectToAction("Details", new { id = panorama.Id });
                 return RedirectToAction("CreatePano", new { id = panorama.Id, userId = panorama.UserId });
             }
 
@@ -95,12 +97,12 @@ namespace KrpanoCMS.Administration.Controllers
 
         public ActionResult CreatePano(int id, string userId)
         {
-            ExecuteCommandCreatePano(id);
-
+            ViewBag.PanoId = id;
+            // ExecuteCommandCreatePano(id);
             return View();
         }
 
-        static void ExecuteCommandCreatePano(int id)
+        public JsonResult ExecuteCommandCreatePano(int id)
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -113,12 +115,14 @@ namespace KrpanoCMS.Administration.Controllers
             var krpanoPath = System.Web.HttpContext.Current.Server.MapPath(@"/Krpano");
             var krpanoImgPath = System.Web.HttpContext.Current.Server.MapPath(@"~/Documents/Panoramas/" + id + ".jpg");
 
-            var command = @"cd """ + krpanoPath + @""" && start krpanotools64.exe makepano -config=templates\flat.config """ +  krpanoImgPath + @"""";
+            var command = @"cd """ + krpanoPath + @""" && start krpanotools64.exe makepano -config=templates\flat.config """ + krpanoImgPath + @"""";
             cmd.StandardInput.WriteLine(command);
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
             Debug.WriteLine(cmd.StandardOutput.ReadToEnd());
+
+            return Json(new { success = true },JsonRequestBehavior.AllowGet);
         }
 
         // GET: Panorama/Edit/5

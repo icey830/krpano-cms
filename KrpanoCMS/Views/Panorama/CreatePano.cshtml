@@ -1,7 +1,24 @@
 ﻿
-@{
-    ViewBag.Title = "CreatePano";
-}
-
 <h2>CreatePano</h2>
 
+@{
+    var kor = @Url.Action("ExecuteCommandCreatePano", "Panorama") + "?id=" + ViewBag.PanoId;
+        }
+<a id="createPanoLink" href="@kor" class="btn btn-info">Create pano</a>
+
+
+<iframe id="panoramaFrame" data-src="/Documents/Panoramas/@ViewBag.PanoId/index.html" class="hidden-frame"></iframe>
+
+
+<script>
+    $(function () {
+        $('#createPanoLink').on('click', function (e) {
+            e.preventDefault();
+            $.ajax(this.href)
+                .then(function () {
+                    var frame = $('#panoramaFrame');
+                    frame.addClass('visible').attr('src', frame.data('src'));
+                });
+        });
+    })
+</script>

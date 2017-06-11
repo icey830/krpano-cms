@@ -36,7 +36,6 @@ namespace KrpanoCMS.Rename
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-                //TODO implement email message alert
             }
         }
 
