@@ -4,45 +4,15 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
-    <h4>Panorama</h4>
+    <h4>Panorama viewer</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AddedOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AddedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PictureUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PictureUrl)
-        </dd>
-
-    </dl>
+    <iframe src="/Documents/Panoramas/@Model.Id/index.html"
+            allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"
+            frameborder="0" scrolling="no" class="krpano-preview"></iframe>
+    <hr />
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
