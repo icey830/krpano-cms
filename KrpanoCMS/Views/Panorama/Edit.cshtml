@@ -32,8 +32,19 @@
 
         <div class="row">
             <div class="col-md-12">
-                <iframe id="panoramaFrame" class="krpano-admin-preview"
-                        src="/Documents/Panoramas/@Model.Id/index.html"></iframe>
+                <script src="/Krpano/pano.js"></script>
+                <div id="panoContainer" class="krpano-preview">
+                    <script>
+                        embedpano({
+                            swf: "/Documents/Panoramas/@Model.Id/pano.swf",
+                            xml: "/Documents/Panoramas/@Model.Id/pano.xml",
+                            target: "panoContainer",
+                            html5: "auto",
+                            mobilescale: 1.0,
+                            passQueryParameters: true
+                        });
+                    </script>
+                </div>
             </div>
         </div>
     </div>

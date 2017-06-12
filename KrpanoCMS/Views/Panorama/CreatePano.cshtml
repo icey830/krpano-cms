@@ -28,32 +28,44 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <iframe id="panoramaFrame" class="krpano-admin-preview hidden-frame"
-                    data-src="/Documents/Panoramas/@ViewBag.PanoId/index.html" 
-                    src="/Documents/Panoramas/@ViewBag.PanoId/index.html"></iframe>
+            <script src="/Krpano/pano.js"></script>
+            <div id="panoContainer" class="krpano-admin-preview"></div>
         </div>
     </div>
 </div>
 
-
 <script>
     $(function () {
+        var $hfov = $('#panoramaHfov');
+        var $vfov = $('#panoramaVfov');
+        var $type = $('#panoramaType');
+        var $loader = $("#imgLoader");
+        var id = "@ViewBag.PanoId";
+
         $('#createPanoLink').on('click', function (e) {
-            $("#imgLoader").css("display", "block");
+            $loader.show();
             e.preventDefault();
             $.ajax({
                 url: this.href,
                 data: {
-                    type: $('#panoramaType').val(),
-                    hfov: $('#panoramaHfov').val(),
-                    vfov: $('#panoramaVfov').val()
+                    type: $type.val(),
+                    hfov: $hfov.val(),
+                    vfov: $vfov.val()
                 }
             })
            .then(function () {
-                $("#imgLoader").css("display", "none");
-                var frame = $('#panoramaFrame');
-                frame.addClass('visible').attr('src', frame.data('src'));
+               $loader.hide();
+               removepano('createPano');
+               embedpano({
+                    id: 'createPano',
+                    swf: '/Documents/Panoramas/' + id + '/pano.swf',
+                    xml: '/Documents/Panoramas/' + id + '/pano.xml',
+                    target: "panoContainer",
+                    html5: "auto",
+                    mobilescale: 1.0,
+                    passQueryParameters: true
+               });
            });
         });
-    })
+    });
 </script>

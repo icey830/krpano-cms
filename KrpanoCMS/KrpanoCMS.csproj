@@ -215,6 +215,7 @@
     <Content Include="Documents\Panoramas\20k.jpg" />
     <Content Include="Documents\Panoramas\432432.jpg" />
     <Content Include="Documents\Panoramas\45435.jpg" />
+    <Content Include="Krpano\pano.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -232,6 +233,7 @@
     <Content Include="Krpano\templates\html\embedpano.html" />
     <Content Include="Krpano\templates\html\tour_editor.html" />
     <Content Include="Krpano\templates\html\tour_testingserver.exe" />
+    <Content Include="Krpano\templates\xml\custom.xml" />
     <Content Include="Krpano\templates\xml\default.xml" />
     <Content Include="Krpano\templates\xml\flat.xml" />
     <Content Include="Krpano\templates\xml\krpano_default_flares.jpg" />
@@ -735,6 +737,7 @@
     <Content Include="Krpano\viewer\examples\webvr\video\video-1024x512.mp4" />
     <Content Include="Krpano\viewer\examples\webvr\video\video-1920x960.mp4" />
     <Content Include="Krpano\viewer\examples\webvr\video\video-1920x960.webm" />
+    <Content Include="Krpano\templates\custom.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

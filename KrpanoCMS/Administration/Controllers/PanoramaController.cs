@@ -99,7 +99,7 @@ namespace KrpanoCMS.Administration.Controllers
             var krpanoPath = System.Web.HttpContext.Current.Server.MapPath(@"/Krpano");
             var krpanoImgPath = System.Web.HttpContext.Current.Server.MapPath(@"~/Documents/Panoramas/" + id + ".jpg");
 
-            var panoramaConfig = @" -config=templates\normal.config -panotype=" + type;
+            var panoramaConfig = @" -config=templates\custom.config -panotype=" + type;
             if(type == "cylinder" || type == "sphere")
             {
                 panoramaConfig += @" -hfov=" + hfov;
@@ -112,7 +112,6 @@ namespace KrpanoCMS.Administration.Controllers
             cmd.StandardInput.WriteLine(@"cd """ + krpanoPath + @"""");
             cmd.StandardInput.WriteLine(@"start krpanotools64.exe makepano"
                 + panoramaConfig
-                + @" -askforxmloverwrite=false"
                 + @" """ + krpanoImgPath + @"""");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
