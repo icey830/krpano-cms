@@ -1,0 +1,40 @@
+﻿<krpano>
+	
+	<!-- the skin -->
+	<include url="skin/defaultskin.xml" />
+	
+	<!-- view settings -->
+	<view hlookat="0" vlookat="0" maxpixelzoom="1.0" fovmax="150" limitview="auto" />
+	
+	<data name="hotspotdata">[
+		{
+			"ath": "0",
+			"atv": "0",
+			"content": "<h1>Popup 1 title</h1><p>Hello world!</p>"
+		},
+		{
+			"ath": "+90",
+			"atv": "-30",
+			"content": "<h1>Popup 2 title</h1><p>Hello from the other side!</p>"
+		},
+		{
+			"ath": "+180",
+			"atv": "+30",
+			"content": "<h1>Popup 3 title</h1><p>I must have called a thousand times!</p>"
+		},
+		{
+			"ath": "+270",
+			"atv": "+60",
+			"content": "<h1>Popup 4 title</h1><p> To tell you I'm sorry for everything that I've done!</p>"
+		}
+	]</data>
+	
+	<plugin name="hotspotpopup" devices="html5" url="hotspotpopup/plugin.js" hotspots="hotspotdata" />
+
+	<preview url="street.tiles/preview.jpg" />
+
+	<image>
+		<cube url="street.tiles/pano_%s.jpg" />
+	</image>
+
+</krpano>
