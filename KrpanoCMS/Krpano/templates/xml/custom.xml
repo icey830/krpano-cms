@@ -6,6 +6,7 @@
 	<!-- view settings -->
 	<view hlookat="0" vlookat="0" maxpixelzoom="1.0" fovmax="150" [VIEWLIMITS]/>
 	
+  <plugin name="hotspotpopup" devices="html5" url="hotspotpopup/plugin.js" />
 
 	[PREVIEW]
 
