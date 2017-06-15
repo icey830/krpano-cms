@@ -40,11 +40,11 @@ function krpanoplugin () {
 	};
 
 	function _loadConfiguration () {
-		if (window.stuff) {
-			api.isAdmin = stuff.admin;
-			api.fetch = typeof stuff.fetch == 'function' ? stuff.fetch : api.fetch;
-			api.save = typeof stuff.save == 'function' ? stuff.save : api.save;
-			api.delete = typeof stuff.delete == 'function' ? stuff.delete : api.delete;
+	    if (window.krpanoAPI) {
+	        api.isAdmin = krpanoAPI.admin;
+	        api.fetch = typeof krpanoAPI.fetch == 'function' ? krpanoAPI.fetch : api.fetch;
+	        api.save = typeof krpanoAPI.save == 'function' ? krpanoAPI.save : api.save;
+	        api.delete = typeof krpanoAPI.delete == 'function' ? krpanoAPI.delete : api.delete;
 		} else {
 			console.error('Invalid configuration');
 		}

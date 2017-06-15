@@ -35,6 +35,33 @@
                 <script src="/Krpano/pano.js"></script>
                 <div id="panoContainer" class="krpano-preview">
                     <script>
+                        var krpanoAPI = {
+                            admin: true,
+                            fetch: function (callback) {
+                                $.ajax({
+                                    method: 'GET',
+                                    url: '/Hotspots/' + @Model.Id,
+                                    success: function (result) {
+                                        callback(hotspots);
+                                    }
+                                });
+                            },
+                            save: function (dto, callback) {
+                                $.ajax({
+                                    method: 'GET',
+                                    url: '/Hotspots/' + (dto.id || ''),
+                                    success: function (result) {
+                                        callback(hotspots);
+                                    }
+                                });
+                            },
+                            delete: function (id) {
+                                $.ajax({
+                                    method: 'DELETE',
+                                    url: '/Hotspots/' + id
+                                });
+                            }
+                        };
                         embedpano({
                             swf: "/Documents/Panoramas/@Model.Id/pano.swf",
                             xml: "/Documents/Panoramas/@Model.Id/pano.xml",
