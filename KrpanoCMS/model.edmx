@@ -27,9 +27,65 @@
           <Property Name="AddedOn" Type="datetime" Nullable="false" />
           <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPano' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TourPano">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="FkTourId" />
+            <PropertyRef Name="FkPanoId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FkTourId" Type="int" Nullable="false" />
+          <Property Name="FkPanoId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDescription' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TourPanoLinkDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="FkPanoId" />
+            <PropertyRef Name="FkTourId" />
+            <PropertyRef Name="Coordinate_X" />
+            <PropertyRef Name="Coordainte_Y" />
+            <PropertyRef Name="FkPanoIdLinkedTo" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FkPanoId" Type="int" Nullable="false" />
+          <Property Name="FkTourId" Type="int" Nullable="false" />
+          <Property Name="Coordinate_X" Type="int" Nullable="false" />
+          <Property Name="Coordainte_Y" Type="int" Nullable="false" />
+          <Property Name="FkPanoIdLinkedTo" Type="int" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Hotspot" EntityType="Self.Hotspot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Panorama" EntityType="Self.Panorama" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TourPano" EntityType="Self.TourPano" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TourPano].[Id] AS [Id], 
+    [TourPano].[FkTourId] AS [FkTourId], 
+    [TourPano].[FkPanoId] AS [FkPanoId]
+    FROM [dbo].[TourPano] AS [TourPano]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TourPanoLinkDescription" EntityType="Self.TourPanoLinkDescription" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TourPanoLinkDescription].[Id] AS [Id], 
+    [TourPanoLinkDescription].[FkPanoId] AS [FkPanoId], 
+    [TourPanoLinkDescription].[FkTourId] AS [FkTourId], 
+    [TourPanoLinkDescription].[Coordinate_X] AS [Coordinate_X], 
+    [TourPanoLinkDescription].[Coordainte_Y] AS [Coordainte_Y], 
+    [TourPanoLinkDescription].[FkPanoIdLinkedTo] AS [FkPanoIdLinkedTo]
+    FROM [dbo].[TourPanoLinkDescription] AS [TourPanoLinkDescription]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -38,6 +94,9 @@
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Panorama" EntityType="Model.Panorama" />
           <EntitySet Name="Hotspot" EntityType="Model.Hotspot" />
+          <EntitySet Name="Tour" EntityType="Model.Tour" />
+          <EntitySet Name="TourPano" EntityType="Model.TourPano" />
+          <EntitySet Name="TourPanoLinkDescription" EntityType="Model.TourPanoLinkDescription" />
         </EntityContainer>
         <EntityType Name="Panorama">
           <Key>
@@ -60,6 +119,40 @@
           <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Coordinate_X" Type="Double" Nullable="false" />
           <Property Name="Coordinate_Y" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TourPano">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="FkTourId" />
+            <PropertyRef Name="FkPanoId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FkTourId" Type="Int32" Nullable="false" />
+          <Property Name="FkPanoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TourPanoLinkDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="FkPanoId" />
+            <PropertyRef Name="FkTourId" />
+            <PropertyRef Name="Coordinate_X" />
+            <PropertyRef Name="Coordainte_Y" />
+            <PropertyRef Name="FkPanoIdLinkedTo" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FkPanoId" Type="Int32" Nullable="false" />
+          <Property Name="FkTourId" Type="Int32" Nullable="false" />
+          <Property Name="Coordinate_X" Type="Int32" Nullable="false" />
+          <Property Name="Coordainte_Y" Type="Int32" Nullable="false" />
+          <Property Name="FkPanoIdLinkedTo" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -91,7 +184,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Tour">
+            <EntityTypeMapping TypeName="Model.Tour">
+              <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TourPano">
+            <EntityTypeMapping TypeName="Model.TourPano">
+              <MappingFragment StoreEntitySet="TourPano">
+                <ScalarProperty Name="FkPanoId" ColumnName="FkPanoId" />
+                <ScalarProperty Name="FkTourId" ColumnName="FkTourId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TourPanoLinkDescription">
+            <EntityTypeMapping TypeName="Model.TourPanoLinkDescription">
+              <MappingFragment StoreEntitySet="TourPanoLinkDescription">
+                <ScalarProperty Name="FkPanoIdLinkedTo" ColumnName="FkPanoIdLinkedTo" />
+                <ScalarProperty Name="Coordainte_Y" ColumnName="Coordainte_Y" />
+                <ScalarProperty Name="Coordinate_X" ColumnName="Coordinate_X" />
+                <ScalarProperty Name="FkTourId" ColumnName="FkTourId" />
+                <ScalarProperty Name="FkPanoId" ColumnName="FkPanoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
