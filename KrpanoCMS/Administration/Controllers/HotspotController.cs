@@ -55,12 +55,12 @@ namespace KrpanoCMS.Administration.Controllers
         {
             hotspot.AddedOn = DateTime.Now;
             hotspot.FkUserId = User.Identity.GetUserId();
-            
+
             if (!ModelState.IsValid)
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
             db.Hotspot.Add(hotspot);
-            db.SaveChangesAsync();
+            db.SaveChanges();
 
             return Json(new { success = true, hotspot = hotspot }, JsonRequestBehavior.AllowGet);
         }
@@ -81,11 +81,14 @@ namespace KrpanoCMS.Administration.Controllers
         [HttpPost]
         public JsonResult Edit(Hotspot hotspot)
         {
+            hotspot.AddedOn = DateTime.Now;
+            hotspot.FkUserId = User.Identity.GetUserId();
+
             if (!ModelState.IsValid)
                 return Json(new { success = false, hotspot = hotspot }, JsonRequestBehavior.AllowGet);
 
             db.Entry(hotspot).State = EntityState.Modified;
-            db.SaveChangesAsync();
+            db.SaveChanges();
 
             return Json(new { success = true, hotspot = hotspot }, JsonRequestBehavior.AllowGet);
         }
@@ -112,7 +115,7 @@ namespace KrpanoCMS.Administration.Controllers
         {
             Hotspot hotspot = db.Hotspot.Find(id);
             db.Hotspot.Remove(hotspot);
-            db.SaveChangesAsync();
+            db.SaveChanges();
 
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
