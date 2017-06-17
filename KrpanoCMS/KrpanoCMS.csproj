@@ -169,6 +169,7 @@
     <Compile Include="Administration\Controllers\TourController.cs" />
     <Compile Include="Administration\IndexController.cs" />
     <Compile Include="Administration\Models\PanoramaModel.cs" />
+    <Compile Include="Administration\Models\TourModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
