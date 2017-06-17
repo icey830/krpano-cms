@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FkPanoramaId" Type="int" Nullable="false" />
           <Property Name="FkUserId" Type="int" Nullable="false" />
           <Property Name="AddedOn" Type="datetime" Nullable="false" />
