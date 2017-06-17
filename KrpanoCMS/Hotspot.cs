@@ -11,13 +11,15 @@ namespace KrpanoCMS
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Hotspot
     {
         public int Id { get; set; }
         public int FkPanoramaId { get; set; }
         public string FkUserId { get; set; }
         public System.DateTime AddedOn { get; set; }
+        [AllowHtml]
         public string Content { get; set; }
         public double Coordinate_X { get; set; }
         public double Coordinate_Y { get; set; }

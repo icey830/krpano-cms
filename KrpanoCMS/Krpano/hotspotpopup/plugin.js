@@ -143,19 +143,20 @@ function krpanoplugin () {
 		popup.appendChild(button);
 	}
 
-	function _saveHotspot (layer, field) {
+	function _saveHotspot(layer, field) {
 		var hotspot = krpano.get(layer.parent);
 		hotspot.content = field.value;
-	 	api.save(_hotspotToDTO(hotspot), function (recordId) {
-	 	    hotspot.recordId = hotspot.recordId || recordId;
-	 	});
+		if (field.value) {
+		    api.save(_hotspotToDTO(hotspot), function (recordId) {
+		        hotspot.recordId = hotspot.recordId || recordId;
+		    });
+		}
 	 	_closePopup(layer);
 	}
 
 	function _deleteHotspot (layer) {
 		var hotspot = krpano.get(layer.parent);
 		hotspot.content = '';
-        debugger
 		api.delete(hotspot.recordId);
 	 	_closePopup(layer);
 	}
