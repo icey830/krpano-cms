@@ -213,12 +213,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\dog.jpg" />
-    <Content Include="Documents\Panoramas\0.jpg" />
-    <Content Include="Documents\Panoramas\0.png" />
-    <Content Include="Documents\Panoramas\1111111111.jpg" />
-    <Content Include="Documents\Panoramas\20k.jpg" />
-    <Content Include="Documents\Panoramas\432432.jpg" />
-    <Content Include="Documents\Panoramas\45435.jpg" />
     <Content Include="Krpano\hotspotpopup\example\hotspotpopup\pin.png" />
     <Content Include="Krpano\hotspotpopup\example\hotspotpopup\plugin.css" />
     <Content Include="Krpano\hotspotpopup\example\hotspotpopup\plugin.js" />
@@ -246,8 +240,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Krpano\cat.jpg" />
-    <Content Include="Krpano\dog.jpg" />
     <Content Include="Krpano\krpano Testing Server.exe" />
     <Content Include="Krpano\krpano Tools.exe" />
     <Content Include="Krpano\krpanotools32.exe" />
@@ -826,6 +818,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Documents\Panoramas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -40,25 +40,29 @@
                             fetch: function (callback) {
                                 $.ajax({
                                     method: 'GET',
-                                    url: '/Hotspots/' + @Model.Id,
+                                    url: '@Url.Action("GetAllHotspotByPanorama", "Hotspot", Model.Id)',
                                     success: function (result) {
-                                        callback(hotspots);
+                                        if (result.success) callback(results.hotspotList);
                                     }
                                 });
                             },
                             save: function (dto, callback) {
+                                var editUrl = '@Url.Action("Edit", "Hotspot")';
+                                var createUrl = '@Url.Action("Create", "Hotspot")';
+                                dto.FkPanoramaId = '@Model.Id';
                                 $.ajax({
-                                    method: 'GET',
-                                    url: '/Hotspots/' + (dto.id || ''),
+                                    method: 'POST',
+                                    url: dto.Id ? editUrl : createUrl,
+                                    data: dto,
                                     success: function (result) {
-                                        callback(hotspots);
+                                        if (result.success) callback(result.hotspot.Id);
                                     }
                                 });
                             },
                             delete: function (id) {
                                 $.ajax({
-                                    method: 'DELETE',
-                                    url: '/Hotspots/' + id
+                                    method: 'POST',
+                                    url: '@Url.Action("Delete", "Hotspot")/' + id
                                 });
                             }
                         };

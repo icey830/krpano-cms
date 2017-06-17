@@ -68,10 +68,10 @@ function krpanoplugin () {
 	
 	function _createHotspot (data) {
 		var hotspot = krpano.addhotspot(data.name);
-		hotspot.id = data.id;
-		hotspot.atv = data.atv;
-		hotspot.ath = data.ath;
-		hotspot.content = data.content;
+		hotspot.recordId = data.Id;
+		hotspot.atv = data.Coordinate_Y;
+		hotspot.ath = data.Coordinate_X;
+		hotspot.content = data.Content;
 		hotspot.distorted = true;
 		hotspot.zorder = 10;
 		hotspot.url = pluginPath + 'pin.png';
@@ -81,11 +81,11 @@ function krpanoplugin () {
 
 	function _hotspotToDTO (hotspot) {
 		return {
-	 		id: hotspot.id,
-	 		ath: hotspot.ath,
-	 		atv: hotspot.atv,
-	 		content: hotspot.content
-	 	};
+		    Id: hotspot.recordId,
+	 		Coordinate_X: hotspot.ath,
+	 		Coordinate_Y: hotspot.atv,
+	 		Content: hotspot.content
+		};
 	}
 	
 	function _openPopup (hotspot) {
@@ -147,7 +147,7 @@ function krpanoplugin () {
 		var hotspot = krpano.get(layer.parent);
 		hotspot.content = field.value;
 	 	api.save(_hotspotToDTO(hotspot), function (recordId) {
-	 		hotspot.id = hotspot.id || recordId;
+	 	    hotspot.recordId = hotspot.recordId || recordId;
 	 	});
 	 	_closePopup(layer);
 	}
@@ -155,7 +155,8 @@ function krpanoplugin () {
 	function _deleteHotspot (layer) {
 		var hotspot = krpano.get(layer.parent);
 		hotspot.content = '';
-	 	api.delete(hotspot.id);
+        debugger
+		api.delete(hotspot.recordId);
 	 	_closePopup(layer);
 	}
 	
@@ -168,9 +169,9 @@ function krpanoplugin () {
 		var coords = krpano.screentosphere(krpano.mouse.x, krpano.mouse.y);
 		var hotspotData = {
 			name: 'click' + Math.round(krpano.timertick),
-			ath: coords.x,
-			atv: coords.y,
-			content: ''
+			Coordinate_X: coords.x,
+			Coordinate_Y: coords.y,
+			Content: ''
 		};
 		var hotspot = _createHotspot(hotspotData);
 		_openPopup(hotspot);

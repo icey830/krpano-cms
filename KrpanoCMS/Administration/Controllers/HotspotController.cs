@@ -103,7 +103,7 @@ namespace KrpanoCMS.Administration.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public JsonResult DeleteConfirmed(int id)
+        public JsonResult Delete(int id)
         {
             Hotspot hotspot = db.Hotspot.Find(id);
             db.Hotspot.Remove(hotspot);
