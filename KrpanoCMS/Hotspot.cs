@@ -16,7 +16,7 @@ namespace KrpanoCMS
     {
         public int Id { get; set; }
         public int FkPanoramaId { get; set; }
-        public int FkUserId { get; set; }
+        public string FkUserId { get; set; }
         public System.DateTime AddedOn { get; set; }
         public string Content { get; set; }
         public double Coordinate_X { get; set; }

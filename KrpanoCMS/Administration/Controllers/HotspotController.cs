@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace KrpanoCMS.Administration.Controllers
 {
@@ -43,7 +45,7 @@ namespace KrpanoCMS.Administration.Controllers
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
 
-            List<Hotspot> hotspotList = db.Hotspot.Where(item=>item.FkPanoramaId==panoramaId).ToList();
+            List<Hotspot> hotspotList = db.Hotspot.Where(item => item.FkPanoramaId == panoramaId).ToList();
 
             return Json(new { success = true, hotspotList = hotspotList }, JsonRequestBehavior.AllowGet);
         }
@@ -51,6 +53,9 @@ namespace KrpanoCMS.Administration.Controllers
         [HttpPost]
         public JsonResult Create(Hotspot hotspot)
         {
+            hotspot.AddedOn = DateTime.Now;
+            hotspot.FkUserId = User.Identity.GetUserId();
+            
             if (!ModelState.IsValid)
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 

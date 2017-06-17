@@ -11,7 +11,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FkPanoramaId" Type="int" Nullable="false" />
-          <Property Name="FkUserId" Type="int" Nullable="false" />
+          <Property Name="FkUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AddedOn" Type="datetime" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Coordinate_X" Type="float" Nullable="false" />
@@ -53,9 +53,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FkPanoramaId" Type="Int32" Nullable="false" />
-          <Property Name="FkUserId" Type="Int32" Nullable="false" />
+          <Property Name="FkUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Coordinate_X" Type="Double" Nullable="false" />
