@@ -1,0 +1,66 @@
+﻿@model KrpanoCMS.Hotspot
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hotspot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FkPanoramaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FkPanoramaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FkUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FkUserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coordinate_X)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coordinate_X)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coordinate_Y)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coordinate_Y)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

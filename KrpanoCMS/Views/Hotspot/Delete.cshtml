@@ -1,0 +1,72 @@
+﻿@model KrpanoCMS.Hotspot
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Hotspot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FkPanoramaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FkPanoramaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FkUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FkUserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coordinate_X)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coordinate_X)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coordinate_Y)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coordinate_Y)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

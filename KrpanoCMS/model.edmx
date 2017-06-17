@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hotspot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FkPanoramaId" Type="int" Nullable="false" />
+          <Property Name="FkUserId" Type="int" Nullable="false" />
+          <Property Name="AddedOn" Type="datetime" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Coordinate_X" Type="float" Nullable="false" />
+          <Property Name="Coordinate_Y" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="Panorama">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,6 +28,7 @@
           <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Hotspot" EntityType="Self.Hotspot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Panorama" EntityType="Self.Panorama" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -24,6 +37,7 @@
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Panorama" EntityType="Model.Panorama" />
+          <EntitySet Name="Hotspot" EntityType="Model.Hotspot" />
         </EntityContainer>
         <EntityType Name="Panorama">
           <Key>
@@ -34,6 +48,18 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PictureUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Hotspot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FkPanoramaId" Type="Int32" Nullable="false" />
+          <Property Name="FkUserId" Type="Int32" Nullable="false" />
+          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Coordinate_X" Type="Double" Nullable="false" />
+          <Property Name="Coordinate_Y" Type="Double" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -48,6 +74,19 @@
                 <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotspot">
+            <EntityTypeMapping TypeName="Model.Hotspot">
+              <MappingFragment StoreEntitySet="Hotspot">
+                <ScalarProperty Name="Coordinate_Y" ColumnName="Coordinate_Y" />
+                <ScalarProperty Name="Coordinate_X" ColumnName="Coordinate_X" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="FkUserId" ColumnName="FkUserId" />
+                <ScalarProperty Name="FkPanoramaId" ColumnName="FkPanoramaId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -26,5 +26,6 @@ namespace KrpanoCMS
         }
     
         public virtual DbSet<Panorama> Panorama { get; set; }
+        public virtual DbSet<Hotspot> Hotspot { get; set; }
     }
 }

@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administration\Controllers\HotspotController.cs" />
     <Compile Include="Administration\Controllers\PanoramaController.cs" />
     <Compile Include="Administration\IndexController.cs" />
     <Compile Include="Administration\Models\PanoramaModel.cs" />
@@ -178,6 +179,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Hotspot.cs">
+      <DependentUpon>model.tt</DependentUpon>
     </Compile>
     <Compile Include="model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -814,6 +818,11 @@
     <Content Include="Views\Panorama\Edit.cshtml" />
     <Content Include="Views\Panorama\Index.cshtml" />
     <Content Include="Views\Panorama\CreatePano.cshtml" />
+    <Content Include="Views\Hotspot\Create.cshtml" />
+    <Content Include="Views\Hotspot\Delete.cshtml" />
+    <Content Include="Views\Hotspot\Details.cshtml" />
+    <Content Include="Views\Hotspot\Edit.cshtml" />
+    <Content Include="Views\Hotspot\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
