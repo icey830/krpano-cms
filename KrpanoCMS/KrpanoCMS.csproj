@@ -214,6 +214,19 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\dog.jpg" />
+    <Content Include="Documents\Panoramas\1111111153.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\1111111153.tiles\pano_b.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\1111111153.tiles\pano_d.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\1111111153.tiles\pano_f.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\1111111153.tiles\pano_l.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\1111111153.tiles\pano_r.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\1111111153.tiles\pano_u.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\1111111153.tiles\preview.jpg" />
+    <Content Include="Documents\Panoramas\1111111153\pano.xml" />
+    <Content Include="Documents\Panoramas\1111111153\skin\buttons-2.png" />
+    <Content Include="Documents\Panoramas\1111111153\skin\defaultskin.xml" />
+    <Content Include="Documents\Panoramas\1111111153\skin\drag-cursors-2.png" />
+    <Content Include="Documents\Panoramas\1111111153\skin\qtvr-cursors.png" />
     <Content Include="Krpano\hotspotpopup\example\hotspotpopup\pin.png" />
     <Content Include="Krpano\hotspotpopup\example\hotspotpopup\plugin.css" />
     <Content Include="Krpano\hotspotpopup\example\hotspotpopup\plugin.js" />
@@ -819,7 +832,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Documents\Panoramas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -7,6 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    max-width: 1200px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -32,7 +33,7 @@ textarea {
 
 .jumbotron {
     background-color: #f1d942;
-    border-top: 18px dashed black;
+    border-top: 10px dashed black;
     border-radius: 0 !important;
 }
 

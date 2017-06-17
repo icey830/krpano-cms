@@ -19,9 +19,6 @@
         <th>
             @Html.DisplayNameFor(model => model.AddedOn)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PictureUrl)
-        </th>
         <th></th>
     </tr>
 
@@ -29,7 +26,10 @@
     {
         <tr>
             <td>
-                <img src="~/Documents/Panoramas/1111111111.jpg" width="200px;" />
+                @{
+                    var fullUrl = "/Documents/Panoramas/" + item.Id + ".jpg";
+                }
+                <img src="@fullUrl" width="200px;" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -38,15 +38,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AddedOn)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PictureUrl)
-            </td>
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
-    }
+                    }
 
 </table>

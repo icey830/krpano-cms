@@ -1,4 +1,4 @@
-﻿@model KrpanoCMS.Panorama
+﻿@model Panorama
 
 @{
     ViewBag.Title = "Edit";
@@ -21,6 +21,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.PictureUrl)
             </div>
         </div>
 
@@ -81,7 +82,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

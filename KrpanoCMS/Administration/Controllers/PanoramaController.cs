@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Diagnostics;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using KrpanoCMS;
 using KrpanoCMS.Rename;
 using Microsoft.AspNet.Identity;
 
@@ -20,36 +15,16 @@ namespace KrpanoCMS.Administration.Controllers
     {
         private Entities db = new Entities();
 
-        // GET: Panorama
         public ActionResult Index()
         {
-            return View(db.Panorama.ToList().Where(item=>item.UserId == User.Identity.GetUserId()));
+            return View(db.Panorama.ToList().Where(item => item.UserId == User.Identity.GetUserId()).OrderByDescending(item => item.AddedOn));
         }
 
-        // GET: Panorama/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Panorama panorama = db.Panorama.Find(id);
-            if (panorama == null)
-            {
-                return HttpNotFound();
-            }
-            return View(panorama);
-        }
-
-        // GET: Panorama/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Panorama/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Panorama panorama, HttpPostedFileBase photo)
@@ -59,8 +34,7 @@ namespace KrpanoCMS.Administration.Controllers
                 panorama.PictureUrl = photo.FileName;
             }
 
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            panorama.UserId = claimsIdentity.GetUserId();
+            panorama.UserId = User.Identity.GetUserId();
             panorama.AddedOn = DateTime.Now;
 
             if (ModelState.IsValid)
@@ -71,7 +45,6 @@ namespace KrpanoCMS.Administration.Controllers
                 string extension = Path.GetExtension(photo.FileName);
                 FileUploader.Upload(photo, panorama.Id + extension);
 
-                //return RedirectToAction("Details", new { id = panorama.Id });
                 return RedirectToAction("CreatePano", new { id = panorama.Id, userId = panorama.UserId });
             }
 
@@ -82,7 +55,7 @@ namespace KrpanoCMS.Administration.Controllers
         public ActionResult CreatePano(int id, string userId)
         {
             ViewBag.PanoId = id;
-            // ExecuteCommandCreatePano(id);
+
             return View();
         }
 
@@ -100,7 +73,7 @@ namespace KrpanoCMS.Administration.Controllers
             var krpanoImgPath = System.Web.HttpContext.Current.Server.MapPath(@"~/Documents/Panoramas/" + id + ".jpg");
 
             var panoramaConfig = @" -config=templates\custom.config -panotype=" + type;
-            if(type == "cylinder" || type == "sphere")
+            if (type == "cylinder" || type == "sphere")
             {
                 panoramaConfig += @" -hfov=" + hfov;
             }
@@ -118,10 +91,9 @@ namespace KrpanoCMS.Administration.Controllers
             cmd.WaitForExit();
             Debug.WriteLine(cmd.StandardOutput.ReadToEnd());
 
-            return Json(new { success = true },JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Panorama/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -136,13 +108,11 @@ namespace KrpanoCMS.Administration.Controllers
             return View(panorama);
         }
 
-        // POST: Panorama/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,UserId,AddedOn,PictureUrl")] Panorama panorama)
+        public ActionResult Edit(Panorama panorama)
         {
+            panorama.UserId = User.Identity.GetUserId();
+
             if (ModelState.IsValid)
             {
                 db.Entry(panorama).State = EntityState.Modified;
@@ -152,8 +122,7 @@ namespace KrpanoCMS.Administration.Controllers
             return View(panorama);
         }
 
-        // GET: Panorama/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -167,14 +136,35 @@ namespace KrpanoCMS.Administration.Controllers
             return View(panorama);
         }
 
-        // POST: Panorama/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Panorama panorama = db.Panorama.Find(id);
+            if (panorama == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(panorama);
+        }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Panorama panorama = db.Panorama.Find(id);
+
             db.Panorama.Remove(panorama);
             db.SaveChanges();
+
+            var rootFolderPath = System.Web.HttpContext.Current.Server.MapPath(@"/Documents/Panoramas/");
+
+            Directory.Delete(rootFolderPath + id, true);
+
             return RedirectToAction("Index");
         }
 
