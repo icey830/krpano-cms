@@ -5,3 +5,39 @@ CREATE TABLE [dbo].[TourPano] (
     CONSTRAINT [PK_TourPano] PRIMARY KEY ([Id])
 );
 
+CREATE TABLE [dbo].[TourPanoLinkDescription] (
+    [Id]               INT IDENTITY (1, 1) NOT NULL,
+    [FkPanoId]         INT NOT NULL,
+    [FkTourId]         INT NOT NULL,
+    [Coordinate_X]     INT NOT NULL,
+    [Coordainte_Y]     INT NOT NULL,
+    [FkPanoIdLinkedTo] INT NOT NULL
+);
+
+CREATE TABLE [dbo].[Tour] (
+    [Id]     INT            IDENTITY (1, 1) NOT NULL,
+    [Name]   NVARCHAR (50)  NOT NULL,
+    [UserId] NVARCHAR (128) NOT NULL,
+    CONSTRAINT [PK_Tour] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Panorama] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [Name]       NCHAR (10)     NOT NULL,
+    [UserId]     NVARCHAR (128) NOT NULL,
+    [AddedOn]    DATETIME       NOT NULL,
+    [PictureUrl] NVARCHAR (100) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Hotspot] (
+    [Id]           INT            IDENTITY (1, 1) NOT NULL,
+    [FkPanoramaId] INT            NOT NULL,
+    [FkUserId]     NVARCHAR (128) NOT NULL,
+    [AddedOn]      DATETIME       NOT NULL,
+    [Content]      NVARCHAR (MAX) NOT NULL,
+    [Coordinate_X] FLOAT (53)     NOT NULL,
+    [Coordinate_Y] FLOAT (53)     NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
