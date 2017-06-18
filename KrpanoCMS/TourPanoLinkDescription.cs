@@ -12,14 +12,13 @@ namespace KrpanoCMS
     using System;
     using System.Collections.Generic;
     
-    public partial class Hotspot
+    public partial class TourPanoLinkDescription
     {
         public int Id { get; set; }
-        public int FkPanoramaId { get; set; }
-        public string FkUserId { get; set; }
-        public System.DateTime AddedOn { get; set; }
-        public string Content { get; set; }
-        public double Coordinate_X { get; set; }
-        public double Coordinate_Y { get; set; }
+        public int FkPanoId { get; set; }
+        public int FkTourId { get; set; }
+        public int Coordinate_X { get; set; }
+        public int Coordainte_Y { get; set; }
+        public int FkPanoIdLinkedTo { get; set; }
     }
 }
