@@ -1,0 +1,7 @@
+CREATE TABLE [dbo].[TourPano] (
+    [Id]       INT IDENTITY (1, 1) NOT NULL,
+    [FkTourId] INT NOT NULL,
+    [FkPanoId] INT NOT NULL, 
+    CONSTRAINT [PK_TourPano] PRIMARY KEY ([Id])
+);
+
