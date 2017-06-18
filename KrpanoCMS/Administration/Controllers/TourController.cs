@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using KrpanoCMS.Administration.Models;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace KrpanoCMS.Administration.Controllers
 {
@@ -66,6 +67,9 @@ namespace KrpanoCMS.Administration.Controllers
                     db.SaveChanges();
                 }
 
+                PanoramaController.CreateTour(model.PanoramaListId);
+                var rootFolderPath = System.Web.HttpContext.Current.Server.MapPath(@"/Documents/Panoramas/");
+                Directory.Move(rootFolderPath + "vtour", rootFolderPath + "vtour" + model.Tour.Id);
                 return RedirectToAction("Index");
             }
 

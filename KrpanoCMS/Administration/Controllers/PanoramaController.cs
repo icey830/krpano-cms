@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using KrpanoCMS.Rename;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace KrpanoCMS.Administration.Controllers
 {
@@ -59,8 +60,18 @@ namespace KrpanoCMS.Administration.Controllers
             return View();
         }
 
-        public JsonResult ExecuteCommandCreatePano(int id, string type, int hfov, int vfov)
-        {
+        private static void ExecuteKrpanotools(int[] images, string type, int hfov, int vfov) {
+            string config = "custom.config";
+            if(images.Length > 1)
+            {
+                config = "vtour-custom.config";
+            }
+
+            string imagesString = "";
+            foreach (var item in images) {
+                imagesString += @" """ + System.Web.HttpContext.Current.Server.MapPath(@"~/Documents/Panoramas/" + item + ".jpg") + @"""";
+            }
+
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
             cmd.StartInfo.RedirectStandardInput = true;
@@ -70,9 +81,8 @@ namespace KrpanoCMS.Administration.Controllers
             cmd.Start();
 
             var krpanoPath = System.Web.HttpContext.Current.Server.MapPath(@"/Krpano");
-            var krpanoImgPath = System.Web.HttpContext.Current.Server.MapPath(@"~/Documents/Panoramas/" + id + ".jpg");
 
-            var panoramaConfig = @" -config=templates\custom.config -panotype=" + type;
+            var panoramaConfig = @" -config=templates\" + config + " -panotype=" + type;
             if (type == "cylinder" || type == "sphere")
             {
                 panoramaConfig += @" -hfov=" + hfov;
@@ -85,13 +95,23 @@ namespace KrpanoCMS.Administration.Controllers
             cmd.StandardInput.WriteLine(@"cd """ + krpanoPath + @"""");
             cmd.StandardInput.WriteLine(@"start krpanotools64.exe makepano"
                 + panoramaConfig
-                + @" """ + krpanoImgPath + @"""");
+                + imagesString);
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
             Debug.WriteLine(cmd.StandardOutput.ReadToEnd());
+        }
 
+        public JsonResult CreatePanorama(int id, string type, int hfov, int vfov)
+        {
+            int[] PanoramaIds = new int[] { id };
+            ExecuteKrpanotools(PanoramaIds, type, hfov, vfov);
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public static void CreateTour(List<int> panoramaIds)
+        {
+            ExecuteKrpanotools(panoramaIds.ToArray(), "sphere", 360, 180);
         }
 
         public ActionResult Edit(int? id)
