@@ -9,23 +9,79 @@
 	border-radius: 20px;
 }
 
-.popup-field {
+.admin-modal-wrapper {
+	display: none;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,.5);
+}
+
+.admin-modal-wrapper.open {
+	display: block;
+}
+
+.admin-modal {
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	width: 400px;
+	margin-left: -200px;
+	padding: 20px;
+	background: rgba(255,255,255,.7);
+	color: #000;
+	text-align: center;
+	border: 1px solid black;
+   border-radius: 5px;
+}
+
+.admin-modal h2 {
+	margin: 0 0 10px;
+}
+
+.scenes-list {
+	margin: 0 0 15px;
+}
+
+.scene-item {
+	display: inline-block;
+	margin: 0 10px;
+	padding: 5px;
+	background: white;
+   border-radius: 5px;
+}
+
+.scene-item img {
+	display: block;
+	width: 64px;
+	height: 64px;
+	margin-bottom: 5px;
+}
+
+.admin-modal .admin-field {
   width: 100%;
   height: 100px;
-  margin: 10px 0 5px;
+  margin: 0 0 10px;
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
 }
 
-.popup button {
-  margin-right: 5px;
+.admin-modal button {
+	padding: 5px 10px;
+  	margin-right: 10px;
 }
 
-.popup .popup-delete {
+.admin-modal .admin-delete-hotspot,
+.admin-modal .admin-delete-link {
   color: red;
+  font-weight: bold;
 }
 
-.popup .popup-save {
+.admin-modal .admin-save-hotspot,
+.admin-modal .admin-save-link {
   color: green;
+  font-weight: bold;
 }
