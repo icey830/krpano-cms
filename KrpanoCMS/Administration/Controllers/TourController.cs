@@ -34,27 +34,42 @@ namespace KrpanoCMS.Administration.Controllers
 
         public ActionResult Create()
         {
-          TourModel model = new TourModel();
-            model.PanoramaList = db.Panorama.ToList()
-                                        .Where(item => item.UserId == User.Identity.GetUserId())
-                                        .ToList();
+            TourModel model = new TourModel();
+
+            var panoramaList = db.Panorama.ToList().Where(item => item.UserId == User.Identity.GetUserId()).ToList();
+
+            model.PanoramaListId = panoramaList.Select(item => item.Id).ToList();
+            ViewBag.ItemInfo = panoramaList.ToList();
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TourModel tour)
+        public ActionResult Create(TourModel model)
         {
-            tour.Tour.UserId = User.Identity.GetUserId();
-
+            model.Tour.UserId = User.Identity.GetUserId();
+            
             if (ModelState.IsValid)
             {
-                db.Tour.Add(tour.Tour);
+                db.Tour.Add(model.Tour);
                 db.SaveChanges();
+
+                foreach (var panoId in model.PanoramaListId)
+                {
+                    var item = new TourPano()
+                    {
+                        FkPanoId = panoId,
+                        FkTourId = model.Tour.Id
+                    };
+                    db.TourPano.Add(item);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
-            return View(tour);
+            return View(model);
         }
 
         public ActionResult Edit(int? id)

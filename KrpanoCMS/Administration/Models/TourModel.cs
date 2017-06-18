@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace KrpanoCMS.Administration.Models
 {
@@ -10,8 +7,15 @@ namespace KrpanoCMS.Administration.Models
 
         public Tour Tour { get; set; }
 
-        public List<Panorama> PanoramaList { get; set; }
+        public List<int> PanoramaListId { get; set; }
 
-        public TourModel() { }
+        //public TourModel()
+        //{
+        //    var tourModelEntity = new TourModel()
+        //    {
+        //       Tour = new Tour(),
+        //       PanoramaList = new List<Panorama>()
+        //    };
+        //}
     }
 }
