@@ -4,13 +4,44 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
-    <h4>Tour</h4>
     <hr />
-    <dl class="dl-horizontal">
-    </dl>
+    <script src="/Krpano/pano.js"></script>
+    <div id="panoContainer" class="krpano-preview">
+        <script>
+            var krpanoAPI = {
+					getHotspots: function (panoramaId, callback) {
+						$.ajax({
+							method: 'GET',
+							url: '@Url.Action("GetAll", "Hotspot")?panoramaId=' + panoramaId,
+							success: function (result) {
+								if (result.success) callback(result.hotspots);
+							}
+						});
+					},
+					getLinks: function (panoramaId, callback) {
+						$.ajax({
+							method: 'GET',
+							url: '@Url.Action("GetAll", "TourPanoLinkDescriptions")?tourId=@model.Id&panoramaId=' + panoramaId,
+							success: function (result) {
+								if (result.success) callback(result.links);
+							}
+						});
+					}
+            };
+            embedpano({
+					swf: "/Documents/Panoramas/vtour" + @Model.Id + "/tour.swf",
+					xml: "/Documents/Panoramas/vtour" + @Model.Id + "/tour.xml",
+                target: "panoContainer",
+                html5: "auto",
+                mobilescale: 1.0,
+                passQueryParameters: true
+            });
+        </script>
+    </div>
+    <hr />
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

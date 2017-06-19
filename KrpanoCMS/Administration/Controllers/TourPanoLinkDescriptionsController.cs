@@ -10,14 +10,14 @@ namespace KrpanoCMS.Administration.Controllers
     {
         private Entities db = new Entities();
 
-        public JsonResult GetAll(int? tourId)
+        public JsonResult GetAll(int? tourId, int? panoramaId)
         {
             if (tourId == null)
             {
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
 
-            List<TourPanoLinkDescription> links = db.TourPanoLinkDescription.Where(item => item.FkTourId == tourId).ToList();
+            List<TourPanoLinkDescription> links = db.TourPanoLinkDescription.Where(item => item.FkTourId == tourId && item.FkPanoId == panoramaId).ToList();
 
             return Json(new { success = true, links = links }, JsonRequestBehavior.AllowGet);
         }
@@ -30,10 +30,10 @@ namespace KrpanoCMS.Administration.Controllers
                 db.TourPanoLinkDescription.Add(tourPanoLinkDescription);
                 db.SaveChanges();
 
-                return Json(new { success = true, hotspotList = tourPanoLinkDescription }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, link = tourPanoLinkDescription }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { success = false, hotspotList = tourPanoLinkDescription }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -45,7 +45,7 @@ namespace KrpanoCMS.Administration.Controllers
                 db.Entry(tourPanoLinkDescription).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return Json(new { success = true, tourPanoLinkDescription = tourPanoLinkDescription }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, link = tourPanoLinkDescription }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);

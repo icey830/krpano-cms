@@ -9,7 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Tour</h4>
         <hr />
@@ -36,38 +36,65 @@
                 <script src="/Krpano/pano.js"></script>
                 <div id="panoContainer" class="krpano-preview">
                     <script>
-                        var krpanoAPI = {
-                            admin: true,
-                            getHotspots: function (callback) {
-                                $.ajax({
-                                    method: 'GET',
-                                    url: '@Url.Action("GetAll", "Hotspot")?panoramaId=@Model.Id',
-                                    success: function (result) {
-                                        if (result.success)
-                                            callback(result.hotspotList);
-                                    }
-                                });
-                            },
-                            saveHotspot: function (dto, callback) {
-                                var editUrl = '@Url.Action("Edit", "Hotspot")';
-                                var createUrl = '@Url.Action("Create", "Hotspot")';
-                                dto.FkPanoramaId = '@Model.Id';
-                                $.ajax({
-                                    method: 'POST',
-                                    url: dto.Id ? editUrl : createUrl,
-                                    data: dto,
-                                    success: function (result) {
-                                        if (result.success) callback(result.hotspot.Id);
-                                    }
-                                });
-                            },
-                            deleteHotspot: function (id) {
-                                $.ajax({
-                                    method: 'POST',
-                                    url: '@Url.Action("Delete", "Hotspot")/' + id
-                                });
-                            }
-                        };
+							  var krpanoAPI = {
+									admin: true,
+									getHotspots: function (panoramaId, callback) {
+										 $.ajax({
+											  method: 'GET',
+											  url: '@Url.Action("GetAll", "Hotspot")?panoramaId=' + panoramaId,
+											  success: function (result) {
+													if (result.success)
+														 callback(result.hotspots);
+											  }
+										 });
+									},
+									saveHotspot: function (dto, callback) {
+										 var editUrl = '@Url.Action("Edit", "Hotspot")';
+										 var createUrl = '@Url.Action("Create", "Hotspot")';
+										 $.ajax({
+											  method: 'POST',
+											  url: dto.Id ? editUrl : createUrl,
+											  data: dto,
+											  success: function (result) {
+													if (result.success) callback(result.hotspot.Id);
+											  }
+										 });
+									},
+									deleteHotspot: function (id) {
+										 $.ajax({
+											  method: 'POST',
+											  url: '@Url.Action("Delete", "Hotspot")/' + id
+										 });
+									},
+									getLinks: function (panoramaId, callback) {
+										$.ajax({
+											method: 'GET',
+											url: '@Url.Action("GetAll", "TourPanoLinkDescriptions")?tourId=@model.Id&panoramaId=' + panoramaId,
+											success: function (result) {
+												if (result.success) callback(result.links);
+											}
+										});
+									},
+									saveLink: function (dto, callback) {
+										 var editUrl = '@Url.Action("Edit", "TourPanoLinkDescriptions")';
+										 var createUrl = '@Url.Action("Create", "TourPanoLinkDescriptions")';
+										 dto.FkTourId = @model.Id;
+										 $.ajax({
+											  method: 'POST',
+											  url: dto.Id ? editUrl : createUrl,
+											  data: dto,
+											  success: function (result) {
+													if (result.success) callback(result.link.Id);
+											  }
+										 });
+									},
+									deleteLink: function (id) {
+										 $.ajax({
+											  method: 'POST',
+											  url: '@Url.Action("Delete", "TourPanoLinkDescriptions")/' + id
+										 });
+									}
+							  };
                         embedpano({
                             swf: "/Documents/Panoramas/vtour" + @Model.Id + "/tour.swf",
                             xml: "/Documents/Panoramas/vtour" + @Model.Id + "/tour.xml",

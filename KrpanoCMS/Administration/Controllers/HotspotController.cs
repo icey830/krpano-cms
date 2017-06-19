@@ -20,9 +20,9 @@ namespace KrpanoCMS.Administration.Controllers
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
 
-            List<Hotspot> hotspotList = db.Hotspot.Where(item => item.FkPanoramaId == panoramaId).ToList();
+            List<Hotspot> hotspots = db.Hotspot.Where(item => item.FkPanoramaId == panoramaId).ToList();
 
-            return Json(new { success = true, hotspotList = hotspotList }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, hotspots = hotspots }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace KrpanoCMS.Administration.Controllers
             hotspot.FkUserId = User.Identity.GetUserId();
 
             if (!ModelState.IsValid)
-                return Json(new { success = false, hotspot = hotspot }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
             db.Entry(hotspot).State = EntityState.Modified;
             db.SaveChanges();

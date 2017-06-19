@@ -38,20 +38,19 @@
                     <script>
                         var krpanoAPI = {
                             admin: true,
-                            getHotspots: function (callback) {
+                            getHotspots: function (panoramaId, callback) {
                                 $.ajax({
                                     method: 'GET',
-                                    url: '@Url.Action("GetAll", "Hotspot")?panoramaId=@Model.Id',
+                                    url: '@Url.Action("GetAll", "Hotspot")?panoramaId=' + panoramaId,
                                     success: function (result) {
                                         if (result.success)
-                                            callback(result.hotspotList);
+                                            callback(result.hotspots);
                                     }
                                 });
                             },
                             saveHotspot: function (dto, callback) {
                                 var editUrl = '@Url.Action("Edit", "Hotspot")';
                                 var createUrl = '@Url.Action("Create", "Hotspot")';
-                                dto.FkPanoramaId = '@Model.Id';
                                 $.ajax({
                                     method: 'POST',
                                     url: dto.Id ? editUrl : createUrl,

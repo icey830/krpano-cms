@@ -12,12 +12,12 @@
     <div id="panoContainer" class="krpano-preview">
         <script>
             var krpanoAPI = {
-                fetch: function (callback) {
+                getHotspots: function (panoramaId, callback) {
                     $.ajax({
                         method: 'GET',
-                        url: '@Url.Action("GetAll", "Hotspot")?panoramaId=@Model.Id',
+                        url: '@Url.Action("GetAll", "Hotspot")?panoramaId=' + panoramaId,
                         success: function (result) {
-                            if (result.success) callback(result.hotspotList);
+                         	if (result.success) callback(result.hotspots);
                         }
                     });
                 }

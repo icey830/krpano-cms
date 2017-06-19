@@ -7,6 +7,6 @@
 
     [IMAGE]
 
-    <plugin name="hotspotpopup" devices="html5" url="/Krpano/hotspotpopup/plugin.js" />
+    <plugin name="hotspotpopup" devices="html5" url="/Krpano/hotspotpopup/plugin.js" panoramaid="[BASENAME]"/>
 
 	</scene>
