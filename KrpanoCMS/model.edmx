@@ -26,9 +26,6 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AddedOn" Type="datetime" Nullable="false" />
           <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="HorizontalFieldOfView" Type="int" Nullable="false" />
-          <Property Name="VerticalFieldOfView" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tour">
           <Key>
@@ -144,9 +141,6 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PictureUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="HorizontalFieldOfView" Type="Int32" Nullable="false" />
-          <Property Name="VerticalFieldOfView" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -200,9 +194,6 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
           <EntitySetMapping Name="Panorama">
             <EntityTypeMapping TypeName="Model.Panorama">
               <MappingFragment StoreEntitySet="Panorama">
-                <ScalarProperty Name="VerticalFieldOfView" ColumnName="VerticalFieldOfView" />
-                <ScalarProperty Name="HorizontalFieldOfView" ColumnName="HorizontalFieldOfView" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
                 <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

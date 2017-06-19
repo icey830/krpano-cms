@@ -15,7 +15,7 @@
                 fetch: function (callback) {
                     $.ajax({
                         method: 'GET',
-                        url: '@Url.Action("GetAllHotspotByPanorama", "Hotspot")?panoramaId=@Model.Id',
+                        url: '@Url.Action("GetAll", "Hotspot")?panoramaId=@Model.Id',
                         success: function (result) {
                             if (result.success) callback(result.hotspotList);
                         }

@@ -11,7 +11,7 @@
 
 .admin-modal-wrapper {
 	display: none;
-	position: fixed;
+	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
@@ -62,6 +62,7 @@
 
 .admin-modal .admin-field {
   width: 100%;
+  max-width: none;
   height: 100px;
   margin: 0 0 10px;
   padding: 10px;

@@ -15,14 +15,69 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-
-        @Html.HiddenFor(model => model.Name)
-
         @Html.HiddenFor(model => model.UserId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <script src="/Krpano/pano.js"></script>
+                <div id="panoContainer" class="krpano-preview">
+                    <script>
+                        var krpanoAPI = {
+                            admin: true,
+                            getHotspots: function (callback) {
+                                $.ajax({
+                                    method: 'GET',
+                                    url: '@Url.Action("GetAll", "Hotspot")?panoramaId=@Model.Id',
+                                    success: function (result) {
+                                        if (result.success)
+                                            callback(result.hotspotList);
+                                    }
+                                });
+                            },
+                            saveHotspot: function (dto, callback) {
+                                var editUrl = '@Url.Action("Edit", "Hotspot")';
+                                var createUrl = '@Url.Action("Create", "Hotspot")';
+                                dto.FkPanoramaId = '@Model.Id';
+                                $.ajax({
+                                    method: 'POST',
+                                    url: dto.Id ? editUrl : createUrl,
+                                    data: dto,
+                                    success: function (result) {
+                                        if (result.success) callback(result.hotspot.Id);
+                                    }
+                                });
+                            },
+                            deleteHotspot: function (id) {
+                                $.ajax({
+                                    method: 'POST',
+                                    url: '@Url.Action("Delete", "Hotspot")/' + id
+                                });
+                            }
+                        };
+                        embedpano({
+                            swf: "/Documents/Panoramas/vtour" + @Model.Id + "/tour.swf",
+                            xml: "/Documents/Panoramas/vtour" + @Model.Id + "/tour.xml",
+                            target: "panoContainer",
+                            html5: "auto",
+                            mobilescale: 1.0,
+                            passQueryParameters: true
+                        });
+                    </script>
+                </div>
             </div>
         </div>
     </div>

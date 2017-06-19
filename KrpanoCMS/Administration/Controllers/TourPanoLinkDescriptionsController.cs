@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -9,30 +10,16 @@ namespace KrpanoCMS.Administration.Controllers
     {
         private Entities db = new Entities();
 
-        public ActionResult Index()
+        public JsonResult GetAll(int? tourId)
         {
-            return View(db.TourPanoLinkDescription.ToList());
-        }
-
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            if (tourId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
 
-            TourPanoLinkDescription tourPanoLinkDescription = db.TourPanoLinkDescription.Find(id);
-            if (tourPanoLinkDescription == null)
-            {
-                return HttpNotFound();
-            }
+            List<TourPanoLinkDescription> links = db.TourPanoLinkDescription.Where(item => item.FkTourId == tourId).ToList();
 
-            return View(tourPanoLinkDescription);
-        }
-
-        public ActionResult Create()
-        {
-            return View();
+            return Json(new { success = true, links = links }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -50,21 +37,6 @@ namespace KrpanoCMS.Administration.Controllers
 
         }
 
-        public JsonResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }
-            TourPanoLinkDescription tourPanoLinkDescription = db.TourPanoLinkDescription.Find(id);
-
-            if (tourPanoLinkDescription == null)
-            {
-                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { success = true, tourPanoLinkDescription = tourPanoLinkDescription }, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public JsonResult Edit(TourPanoLinkDescription tourPanoLinkDescription)
         {
@@ -79,6 +51,7 @@ namespace KrpanoCMS.Administration.Controllers
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult Delete(int? id)
         {
             if (id == null)
@@ -93,12 +66,6 @@ namespace KrpanoCMS.Administration.Controllers
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { success = true, tourPanoLinkDescription = tourPanoLinkDescription }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult Delete(int id)
-        {
-            TourPanoLinkDescription tourPanoLinkDescription = db.TourPanoLinkDescription.Find(id);
             db.TourPanoLinkDescription.Remove(tourPanoLinkDescription);
             db.SaveChanges();
 

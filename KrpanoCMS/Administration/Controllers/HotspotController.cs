@@ -13,32 +13,7 @@ namespace KrpanoCMS.Administration.Controllers
     {
         private Entities db = new Entities();
 
-        // GET: Hotspot
-        public async Task<ActionResult> Index()
-        {
-            return View(await db.Hotspot.ToListAsync());
-        }
-
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Hotspot hotspot = await db.Hotspot.FindAsync(id);
-            if (hotspot == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hotspot);
-        }
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        public JsonResult GetAllHotspotByPanorama(int? panoramaId)
+        public JsonResult GetAll(int? panoramaId)
         {
             if (panoramaId == null)
             {
@@ -65,19 +40,6 @@ namespace KrpanoCMS.Administration.Controllers
             return Json(new { success = true, hotspot = hotspot }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }
-
-            Hotspot hotspot = db.Hotspot.Find(id);
-
-            return Json(new { success = true, hotspot = hotspot }, JsonRequestBehavior.AllowGet);
-
-        }
-
         [HttpPost]
         public JsonResult Edit(Hotspot hotspot)
         {
@@ -91,23 +53,6 @@ namespace KrpanoCMS.Administration.Controllers
             db.SaveChanges();
 
             return Json(new { success = true, hotspot = hotspot }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }
-
-            Hotspot hotspot = db.Hotspot.Find(id);
-
-            if (hotspot == null)
-            {
-                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost, ActionName("Delete")]
