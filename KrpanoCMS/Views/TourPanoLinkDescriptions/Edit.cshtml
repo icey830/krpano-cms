@@ -1,0 +1,39 @@
+﻿@model KrpanoCMS.TourPanoLinkDescription
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TourPanoLinkDescription</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        @Html.HiddenFor(model => model.FkPanoId)
+
+        @Html.HiddenFor(model => model.FkTourId)
+
+        @Html.HiddenFor(model => model.Coordinate_X)
+
+        @Html.HiddenFor(model => model.Coordainte_Y)
+
+        @Html.HiddenFor(model => model.FkPanoIdLinkedTo)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

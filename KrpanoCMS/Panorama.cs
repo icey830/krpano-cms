@@ -19,5 +19,8 @@ namespace KrpanoCMS
         public string UserId { get; set; }
         public System.DateTime AddedOn { get; set; }
         public string PictureUrl { get; set; }
+        public string Type { get; set; }
+        public int HorizontalFieldOfView { get; set; }
+        public int VerticalFieldOfView { get; set; }
     }
 }

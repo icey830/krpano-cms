@@ -26,6 +26,9 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AddedOn" Type="datetime" Nullable="false" />
           <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="HorizontalFieldOfView" Type="int" Nullable="false" />
+          <Property Name="VerticalFieldOfView" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tour">
           <Key>
@@ -82,22 +85,12 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Panorama" EntityType="Model.Panorama" />
           <EntitySet Name="Hotspot" EntityType="Model.Hotspot" />
           <EntitySet Name="Tour" EntityType="Model.Tour" />
           <EntitySet Name="TourPanoLinkDescription" EntityType="Model.TourPanoLinkDescription" />
           <EntitySet Name="TourPano" EntityType="Model.TourPano" />
+          <EntitySet Name="Panorama" EntityType="Model.Panorama" />
         </EntityContainer>
-        <EntityType Name="Panorama">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PictureUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Hotspot">
           <Key>
             <PropertyRef Name="Id" />
@@ -142,23 +135,25 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
           <Property Name="FkTourId" Type="Int32" Nullable="false" />
           <Property Name="FkPanoId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Panorama">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PictureUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HorizontalFieldOfView" Type="Int32" Nullable="false" />
+          <Property Name="VerticalFieldOfView" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Panorama">
-            <EntityTypeMapping TypeName="Model.Panorama">
-              <MappingFragment StoreEntitySet="Panorama">
-                <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
-                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Hotspot">
             <EntityTypeMapping TypeName="Model.Hotspot">
               <MappingFragment StoreEntitySet="Hotspot">
@@ -198,6 +193,20 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
               <MappingFragment StoreEntitySet="TourPano">
                 <ScalarProperty Name="FkPanoId" ColumnName="FkPanoId" />
                 <ScalarProperty Name="FkTourId" ColumnName="FkTourId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Panorama">
+            <EntityTypeMapping TypeName="Model.Panorama">
+              <MappingFragment StoreEntitySet="Panorama">
+                <ScalarProperty Name="VerticalFieldOfView" ColumnName="VerticalFieldOfView" />
+                <ScalarProperty Name="HorizontalFieldOfView" ColumnName="HorizontalFieldOfView" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
