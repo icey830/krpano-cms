@@ -274,7 +274,7 @@ function krpanoplugin () {
 	    	Id: link.recordId,
 	 		Coordinate_X: link.ath,
 	 		Coordinate_Y: link.atv,
-	 		FkPanoIdLinkedTo: link.linkedscene,
+	 		FkPanoIdLinkedTo: parseInt(link.linkedscene.split('_')[1], 10),
 			FkPanoId: plugin.panoramaid
 		};
 	}
@@ -356,7 +356,7 @@ function krpanoplugin () {
 		link.recordId = data.Id;
 		link.atv = data.Coordinate_Y;
 		link.ath = data.Coordinate_X;
-		link.linkedscene = data.FkPanoIdLinkedTo;
+		link.linkedscene = 'scene_' + data.FkPanoIdLinkedTo;
 		link.zorder = 10;
 		if (api.isAdmin) {
 			link.onclick = _openEditDialog.bind(this, link);
