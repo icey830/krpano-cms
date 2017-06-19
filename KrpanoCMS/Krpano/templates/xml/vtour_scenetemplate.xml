@@ -1,10 +1,12 @@
 ﻿
 	<scene name="scene_[BASENAME]" title="[NAME]" onstart=""[SCENEPARAMETERS][THUMB][GPS][DEVICE]>
 
-		[VIEW]
+    [VIEW]
 
-		[PREVIEW]
+    [PREVIEW]
 
-		[IMAGE]
+    [IMAGE]
+
+    <plugin name="hotspotpopup" devices="html5" url="/Krpano/hotspotpopup/plugin.js" />
 
 	</scene>

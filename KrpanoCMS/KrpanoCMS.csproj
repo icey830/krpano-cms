@@ -783,6 +783,7 @@
     <Content Include="Krpano\viewer\examples\webvr\video\video-1920x960.webm" />
     <Content Include="Krpano\templates\custom.config" />
     <Content Include="Krpano\hotspotpopup\example\tour_testingserver_macos" />
+    <Content Include="Krpano\templates\vtour-custom.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
