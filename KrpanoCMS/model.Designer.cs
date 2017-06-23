@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\user\work\KrpanoCMS\KrpanoCMS\model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Fani\Documents\Visual Studio 2015\Projects\KrpanoCMS\KrpanoCMS\model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
