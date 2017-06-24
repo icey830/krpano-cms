@@ -69,7 +69,7 @@
 									getLinks: function (panoramaId, callback) {
 										$.ajax({
 											method: 'GET',
-											url: '@Url.Action("GetAll", "TourPanoLinkDescriptions")?tourId=@model.Id&panoramaId=' + panoramaId,
+											url: '@Url.Action("GetAll", "TourPanoLinkDescriptions")?tourId=@Model.Id&panoramaId=' + panoramaId,
 											success: function (result) {
 												if (result.success) callback(result.links);
 											}
@@ -78,7 +78,7 @@
 									saveLink: function (dto, callback) {
 										 var editUrl = '@Url.Action("Edit", "TourPanoLinkDescriptions")';
 										 var createUrl = '@Url.Action("Create", "TourPanoLinkDescriptions")';
-										 dto.FkTourId = @model.Id;
+										 dto.FkTourId = @Model.Id;
 										 $.ajax({
 											  method: 'POST',
 											  url: dto.Id ? editUrl : createUrl,

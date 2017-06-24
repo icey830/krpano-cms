@@ -73,3 +73,16 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+<script>
+    $("form").on("submit", function(e) {
+
+
+        if ($("input[name=PanoramaListId]:checked").length <= 1) {
+            alert("NO");
+            e.preventDefault();
+            return;
+        }
+    });
+</script>
