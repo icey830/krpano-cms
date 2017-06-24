@@ -852,6 +852,8 @@
     <Content Include="Views\TourPanoLinkDescriptions\Details.cshtml" />
     <Content Include="Views\TourPanoLinkDescriptions\Edit.cshtml" />
     <Content Include="Views\TourPanoLinkDescriptions\Index.cshtml" />
+    <Content Include="Views\Panorama\Tiles.cshtml" />
+    <Content Include="Views\Tour\Tiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,6 +21,11 @@ namespace KrpanoCMS.Administration.Controllers
             return View(db.Panorama.ToList().Where(item => item.UserId == User.Identity.GetUserId()).OrderByDescending(item => item.AddedOn));
         }
 
+        public ActionResult Tiles()
+        {
+            return View(db.Panorama.ToList().Where(item => item.UserId == User.Identity.GetUserId()).OrderByDescending(item => item.AddedOn));
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -46,7 +51,11 @@ namespace KrpanoCMS.Administration.Controllers
                 string extension = Path.GetExtension(photo.FileName);
                 FileUploader.Upload(photo, panorama.Id + extension);
 
-                return RedirectToAction("CreatePano", new { id = panorama.Id, userId = panorama.UserId });
+                int[] PanoramaIds = new int[] { panorama.Id };
+                ExecuteKrpanotools(PanoramaIds, "sphere", 360, 180);
+                return RedirectToAction("Index");
+
+                //return RedirectToAction("CreatePano", new { id = panorama.Id, userId = panorama.UserId });
             }
 
             return View(panorama);
@@ -60,7 +69,7 @@ namespace KrpanoCMS.Administration.Controllers
             return View();
         }
 
-        private static void ExecuteKrpanotools(int[] images, string type, int hfov, int vfov) {
+        public static void ExecuteKrpanotools(int[] images, string type, int hfov, int vfov) {
             string config = "custom.config";
             if(images.Length > 1)
             {
@@ -107,11 +116,6 @@ namespace KrpanoCMS.Administration.Controllers
             int[] PanoramaIds = new int[] { id };
             ExecuteKrpanotools(PanoramaIds, type, hfov, vfov);
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-        }
-
-        public static void CreateTour(List<int> panoramaIds)
-        {
-            ExecuteKrpanotools(panoramaIds.ToArray(), "sphere", 360, 180);
         }
 
         public ActionResult Edit(int? id)

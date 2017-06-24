@@ -16,7 +16,12 @@ namespace KrpanoCMS.Administration.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Tour.ToList());
+            return View(db.Tour.ToList().Where(item => item.UserId == User.Identity.GetUserId()).OrderByDescending(item => item.Id));
+        }
+
+        public ActionResult Tiles()
+        {
+            return View(db.Tour.ToList().Where(item => item.UserId == User.Identity.GetUserId()).OrderByDescending(item => item.Id));
         }
 
         public ActionResult Details(int? id)
@@ -67,13 +72,18 @@ namespace KrpanoCMS.Administration.Controllers
                     db.SaveChanges();
                 }
 
-                PanoramaController.CreateTour(model.PanoramaListId);
+                CreateTour(model.PanoramaListId);
                 var rootFolderPath = System.Web.HttpContext.Current.Server.MapPath(@"/Documents/Panoramas/");
                 Directory.Move(rootFolderPath + "vtour", rootFolderPath + "vtour" + model.Tour.Id);
                 return RedirectToAction("Index");
             }
 
             return View(model);
+        }
+
+        private static void CreateTour(List<int> panoramaIds)
+        {
+            PanoramaController.ExecuteKrpanotools(panoramaIds.ToArray(), "sphere", 360, 180);
         }
 
         public ActionResult Edit(int? id)

@@ -5,11 +5,16 @@
 <div class="jumbotron">
     <h1>Krpano CMS</h1>
     <p class="lead">Krpano CMS is created for you!</p>
-    <p><a href="http://asp.net" class="btn btn-default btn-lg">Learn more &raquo;</a></p>
+    <p><a href="https://krpano.com/" class="btn btn-default btn-lg">Learn more &raquo;</a></p>
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    @Html.Partial("../Panorama/Tiles")
+    @Html.Partial("../Tour/Tiles")
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-sm-6">
         <h2>What is Krpano</h2>
         <p>
             The krpano Viewer is a small and very flexible high-performance viewer for all kind of panoramic images and interactive virtual tours.
@@ -19,7 +24,7 @@
         </p>
         <p><a class="btn btn-default" href="https://krpano.com/">Learn more &raquo;</a></p>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-sm-6">
         <h2>Features</h2>
         <p>
             Flash and HTML5

@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    Entities db = new Entities();
+    IEnumerable<Tour> models = db.Tour.ToList()
+        .Where(item => item.UserId == User.Identity.GetUserId())
+        .OrderByDescending(item => item.Id);
+    ViewBag.Title = "My Virtual Tours";
+}
+@if (Request.IsAuthenticated && models.Count() > 0)
+{
+    <div class="col-md-6 col-sm-6">
+        <h2>My Virtual Tours</h2>
+        <ul class="tiles-list">
+            @foreach (var item in models)
+            {
+                <li>
+                    <a class="tile-link" href="@Url.Action("Details", "Tour", new { id = item.Id })">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}

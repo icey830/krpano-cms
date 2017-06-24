@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    Entities db = new Entities();
+    IEnumerable<Panorama> models = db.Panorama.ToList()
+        .Where(item => item.UserId == User.Identity.GetUserId())
+        .OrderByDescending(item => item.AddedOn);
+    ViewBag.Title = "My panoramas";
+}
+@if (Request.IsAuthenticated && models.Count() > 0)
+{
+    <div class="col-md-6 col-sm-6">
+        <h2>My panoramas</h2>
+        <ul class="tiles-list">
+            @foreach (var item in models)
+            {
+                <li>
+                    <a class="tile-link" href="@Url.Action("Details", "Panorama", new { id = item.Id })">
+                        @{
+                            var fullUrl = "/Documents/Panoramas/" + item.Id + ".jpg";
+                        }
+                        <img src="@fullUrl" class="tile-image" width="200" />
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
