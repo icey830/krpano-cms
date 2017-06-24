@@ -31,9 +31,10 @@ textarea {
 }
 
 .jumbotron {
-    background-color: #f1d942;
-    border-top: 10px dashed black;
-    border-radius: 0 !important;
+    background: url(http://www.easypano.com/images/pw/v3/banner.jpg) center center no-repeat;
+    background-size: auto 100%;
+    text-shadow: 0 0 15px white;
+    color: black;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -79,4 +80,26 @@ h2 {
 
 #createPanoLink {
     margin-top: 30px;
+}
+
+.panel-footer {
+    background: transparent;
+}
+
+.list-group-item {
+    overflow:hidden;
+    padding-right: 100px;
+}
+
+.list-group-item-image {
+    height: 50px;
+    position: absolute;
+    top:0;
+    left: 100%;
+    margin-left: -80px;
+    opacity: .5;
+}
+
+.list-group-item:hover .list-group-item-image {
+    opacity: 1;
 }

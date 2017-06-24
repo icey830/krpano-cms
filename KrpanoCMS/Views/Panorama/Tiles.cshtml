@@ -6,23 +6,36 @@
         .OrderByDescending(item => item.AddedOn);
     ViewBag.Title = "My panoramas";
 }
-@if (Request.IsAuthenticated && models.Count() > 0)
+@if (Request.IsAuthenticated)
 {
     <div class="col-md-6 col-sm-6">
-        <h2>My panoramas</h2>
-        <ul class="tiles-list">
-            @foreach (var item in models)
+        <div class="panel panel-default panel-panoramas">
+            <div class="panel-heading">
+                <h4 class="panel-title">My panoramas</h4>
+            </div>
+            @if (models.Count() > 0)
             {
-                <li>
-                    <a class="tile-link" href="@Url.Action("Details", "Panorama", new { id = item.Id })">
-                        @{
-                            var fullUrl = "/Documents/Panoramas/" + item.Id + ".jpg";
-                        }
-                        <img src="@fullUrl" class="tile-image" width="200" />
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </a>
-                </li>
+                <div class="list-group">
+                    @foreach (var item in models)
+                    {
+                        <a class="list-group-item" href="@Url.Action("Details", "Panorama", new { id = item.Id })">
+                            @{
+                                var fullUrl = "/Documents/Panoramas/" + item.Id + ".jpg";
+                            }
+                            <img src="@fullUrl" class="list-group-item-image" />
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </a>
+                    }
+                </div>
+            } else
+            {
+                <div class="panel-body">
+                    Nothing yet :(
+                </div>
             }
-        </ul>
+            <div class="panel-footer text-right">
+                @Html.ActionLink("Manage Tours", "Index", "Tour")
+            </div>
+        </div>
     </div>
 }

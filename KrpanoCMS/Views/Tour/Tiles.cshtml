@@ -6,19 +6,32 @@
         .OrderByDescending(item => item.Id);
     ViewBag.Title = "My Virtual Tours";
 }
-@if (Request.IsAuthenticated && models.Count() > 0)
+@if (Request.IsAuthenticated)
 {
     <div class="col-md-6 col-sm-6">
-        <h2>My Virtual Tours</h2>
-        <ul class="tiles-list">
-            @foreach (var item in models)
+        <div class="panel panel-default panel-tourd">
+            <div class="panel-heading">
+                <h4 class="panel-title">My Virtual Tours</h4>
+            </div>
+            @if (models.Count() > 0)
             {
-                <li>
-                    <a class="tile-link" href="@Url.Action("Details", "Tour", new { id = item.Id })">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </a>
-                </li>
+                <div class="list-group">
+                    @foreach (var item in models)
+                    {
+                        <a class="list-group-item" href="@Url.Action("Details", "Tour", new { id = item.Id })">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </a>
+                    }
+                </div>
+            } else
+            {
+                <div class="panel-body">
+                    Nothing yet :(
+                </div>
             }
-        </ul>
+            <div class="panel-footer text-right">
+                @Html.ActionLink("Manage Panoramas", "Index", "Panorama")
+            </div>
+        </div>
     </div>
 }
