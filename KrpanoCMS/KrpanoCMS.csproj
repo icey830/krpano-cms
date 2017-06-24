@@ -735,13 +735,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="model.edmx.diagram">
-      <DependentUpon>model.edmx</DependentUpon>
-    </Content>
     <Content Include="Krpano\Convert CUBE to SPHERE droplet.bat" />
     <Content Include="Krpano\Convert SPHERE to CUBE droplet.bat" />
     <Content Include="Krpano\ENCRYPT XML droplet.bat" />
@@ -784,6 +777,13 @@
     <Content Include="Krpano\templates\custom.config" />
     <Content Include="Krpano\hotspotpopup\example\tour_testingserver_macos" />
     <Content Include="Krpano\templates\vtour-custom.config" />
+    <EntityDeploy Include="model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="model.edmx.diagram">
+      <DependentUpon>model.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

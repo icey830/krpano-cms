@@ -259,7 +259,7 @@ function krpanoplugin () {
 				name: 'click' + Math.round(krpano.timertick),
 				Coordinate_X: adminModal.coords.x,
 				Coordinate_Y: adminModal.coords.y,
-				FkPanoIdLinkedTo: checkbox.value
+				FkPanoIdLinkedTo: parseInt(checkbox.value.split('_')[1], 10)
 			});
 		}
 
