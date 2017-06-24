@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8468f0cd7db448a2965e9833c20e4472" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Hotspot" PointX="2.75" PointY="3.75" Width="1.5" />
-        <EntityTypeShape EntityType="Model.Tour" PointX="2.75" PointY="0.75" Width="1.5" />
-        <EntityTypeShape EntityType="Model.TourPano" PointX="0.75" PointY="3.75" Width="1.5" />
-        <EntityTypeShape EntityType="Model.Panorama" PointX="0.75" PointY="0.75" Width="1.5" />
-        <EntityTypeShape EntityType="Model.TourPanoLinkDescription" PointX="4.75" PointY="0.75" Width="3.375" />
+      <Diagram DiagramId="8eaa394a4dc34e18aa52b8844ea078bd" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Hotspot" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Panorama" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Tour" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TourPano" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TourPanoLinkDescription" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
