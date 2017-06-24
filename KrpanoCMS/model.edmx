@@ -26,6 +26,7 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AddedOn" Type="datetime" Nullable="false" />
           <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Tour">
           <Key>
@@ -51,14 +52,14 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
             <PropertyRef Name="FkPanoId" />
             <PropertyRef Name="FkTourId" />
             <PropertyRef Name="Coordinate_X" />
-            <PropertyRef Name="Coordainte_Y" />
+            <PropertyRef Name="Coordinate_Y" />
             <PropertyRef Name="FkPanoIdLinkedTo" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FkPanoId" Type="int" Nullable="false" />
           <Property Name="FkTourId" Type="int" Nullable="false" />
-          <Property Name="Coordinate_X" Type="int" Nullable="false" />
-          <Property Name="Coordainte_Y" Type="int" Nullable="false" />
+          <Property Name="Coordinate_X" Type="float" Nullable="false" />
+          <Property Name="Coordinate_Y" Type="float" Nullable="false" />
           <Property Name="FkPanoIdLinkedTo" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
@@ -72,7 +73,7 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
     [TourPanoLinkDescription].[FkPanoId] AS [FkPanoId], 
     [TourPanoLinkDescription].[FkTourId] AS [FkTourId], 
     [TourPanoLinkDescription].[Coordinate_X] AS [Coordinate_X], 
-    [TourPanoLinkDescription].[Coordainte_Y] AS [Coordainte_Y], 
+    [TourPanoLinkDescription].[Coordinate_Y] AS [Coordinate_Y], 
     [TourPanoLinkDescription].[FkPanoIdLinkedTo] AS [FkPanoIdLinkedTo]
     FROM [dbo].[TourPanoLinkDescription] AS [TourPanoLinkDescription]</DefiningQuery>
           </EntitySet>
@@ -84,9 +85,9 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Hotspot" EntityType="Model.Hotspot" />
           <EntitySet Name="Tour" EntityType="Model.Tour" />
-          <EntitySet Name="TourPanoLinkDescription" EntityType="Model.TourPanoLinkDescription" />
           <EntitySet Name="TourPano" EntityType="Model.TourPano" />
           <EntitySet Name="Panorama" EntityType="Model.Panorama" />
+          <EntitySet Name="TourPanoLinkDescription" EntityType="Model.TourPanoLinkDescription" />
         </EntityContainer>
         <EntityType Name="Hotspot">
           <Key>
@@ -108,22 +109,6 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TourPanoLinkDescription">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="FkPanoId" />
-            <PropertyRef Name="FkTourId" />
-            <PropertyRef Name="Coordinate_X" />
-            <PropertyRef Name="Coordainte_Y" />
-            <PropertyRef Name="FkPanoIdLinkedTo" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FkPanoId" Type="Int32" Nullable="false" />
-          <Property Name="FkTourId" Type="Int32" Nullable="false" />
-          <Property Name="Coordinate_X" Type="Int32" Nullable="false" />
-          <Property Name="Coordainte_Y" Type="Int32" Nullable="false" />
-          <Property Name="FkPanoIdLinkedTo" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="TourPano">
           <Key>
             <PropertyRef Name="Id" />
@@ -141,6 +126,23 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PictureUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TourPanoLinkDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="FkPanoId" />
+            <PropertyRef Name="FkTourId" />
+            <PropertyRef Name="Coordinate_X" />
+            <PropertyRef Name="Coordinate_Y" />
+            <PropertyRef Name="FkPanoIdLinkedTo" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FkPanoId" Type="Int32" Nullable="false" />
+          <Property Name="FkTourId" Type="Int32" Nullable="false" />
+          <Property Name="Coordinate_X" Type="Double" Nullable="false" />
+          <Property Name="Coordinate_Y" Type="Double" Nullable="false" />
+          <Property Name="FkPanoIdLinkedTo" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -170,18 +172,6 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TourPanoLinkDescription">
-            <EntityTypeMapping TypeName="Model.TourPanoLinkDescription">
-              <MappingFragment StoreEntitySet="TourPanoLinkDescription">
-                <ScalarProperty Name="FkPanoIdLinkedTo" ColumnName="FkPanoIdLinkedTo" />
-                <ScalarProperty Name="Coordainte_Y" ColumnName="Coordainte_Y" />
-                <ScalarProperty Name="Coordinate_X" ColumnName="Coordinate_X" />
-                <ScalarProperty Name="FkTourId" ColumnName="FkTourId" />
-                <ScalarProperty Name="FkPanoId" ColumnName="FkPanoId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TourPano">
             <EntityTypeMapping TypeName="Model.TourPano">
               <MappingFragment StoreEntitySet="TourPano">
@@ -194,10 +184,23 @@ warning 6002: The table/view 'aspnet-KrpanoCMS-20170603014526.dbo.TourPanoLinkDe
           <EntitySetMapping Name="Panorama">
             <EntityTypeMapping TypeName="Model.Panorama">
               <MappingFragment StoreEntitySet="Panorama">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
                 <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TourPanoLinkDescription">
+            <EntityTypeMapping TypeName="Model.TourPanoLinkDescription">
+              <MappingFragment StoreEntitySet="TourPanoLinkDescription">
+                <ScalarProperty Name="FkPanoIdLinkedTo" ColumnName="FkPanoIdLinkedTo" />
+                <ScalarProperty Name="Coordinate_Y" ColumnName="Coordinate_Y" />
+                <ScalarProperty Name="Coordinate_X" ColumnName="Coordinate_X" />
+                <ScalarProperty Name="FkTourId" ColumnName="FkTourId" />
+                <ScalarProperty Name="FkPanoId" ColumnName="FkPanoId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

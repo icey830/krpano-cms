@@ -17,8 +17,8 @@ namespace KrpanoCMS
         public int Id { get; set; }
         public int FkPanoId { get; set; }
         public int FkTourId { get; set; }
-        public int Coordinate_X { get; set; }
-        public int Coordainte_Y { get; set; }
+        public double Coordinate_X { get; set; }
+        public double Coordinate_Y { get; set; }
         public int FkPanoIdLinkedTo { get; set; }
     }
 }
