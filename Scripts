@@ -16,14 +16,14 @@ CREATE TABLE [dbo].[TourPanoLinkDescription] (
 
 CREATE TABLE [dbo].[Tour] (
     [Id]     INT            IDENTITY (1, 1) NOT NULL,
-    [Name]   NVARCHAR (50)  NOT NULL,
+    [Name]   NVARCHAR (128)  NOT NULL,
     [UserId] NVARCHAR (128) NOT NULL,
     CONSTRAINT [PK_Tour] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 CREATE TABLE [dbo].[Panorama] (
     [Id]         INT            IDENTITY (1, 1) NOT NULL,
-    [Name]       NCHAR (10)     NOT NULL,
+    [Name]       NCHAR (128)     NOT NULL,
     [UserId]     NVARCHAR (128) NOT NULL,
     [AddedOn]    DATETIME       NOT NULL,
     [PictureUrl] NVARCHAR (100) NOT NULL,

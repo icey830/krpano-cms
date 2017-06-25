@@ -135,6 +135,8 @@ namespace KrpanoCMS.Administration.Controllers
             Tour tour = db.Tour.Find(id);
             db.Tour.Remove(tour);
             db.SaveChanges();
+            var rootFolderPath = System.Web.HttpContext.Current.Server.MapPath(@"/Documents/Panoramas/");
+            Directory.Delete(rootFolderPath + "vtour" + id, true);
             return RedirectToAction("Index");
         }
 

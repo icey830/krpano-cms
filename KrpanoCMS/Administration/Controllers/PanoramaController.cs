@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using KrpanoCMS.Rename;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace KrpanoCMS.Administration.Controllers
 {
@@ -43,11 +44,11 @@ namespace KrpanoCMS.Administration.Controllers
             panorama.UserId = User.Identity.GetUserId();
             panorama.AddedOn = DateTime.Now;
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && photo != null)
             {
                 db.Panorama.Add(panorama);
                 db.SaveChanges();
-
+                
                 string extension = Path.GetExtension(photo.FileName);
                 FileUploader.Upload(photo, panorama.Id + extension);
 
