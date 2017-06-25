@@ -243,3 +243,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# krpano generated content
+KrpanoCMS/Documents/Panoramas
