@@ -32,7 +32,7 @@ textarea {
 
 .jumbotron {
     background: url(http://www.easypano.com/images/pw/v3/banner.jpg) center center no-repeat;
-    background-size: auto 100%;
+    background-size: cover;
     text-shadow: 0 0 15px white;
     color: black;
 }

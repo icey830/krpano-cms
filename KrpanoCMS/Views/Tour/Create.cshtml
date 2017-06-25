@@ -27,40 +27,26 @@
             Select which panoramas to include in this tour:
         </h3>
 
-        @*@foreach (var itm in Model.PanoramaList.ToList())
-            {
-
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <input type="checkbox" value="@itm.Id" id="@itm.Id" />
-                        <label for="@itm.Id">@itm.Name</label>
-
-                    </div>
-                </div>
-
-            }*@
-
         @{
             List<Panorama> aaa = ViewBag.ItemInfo;
         }
 
-        <table>
-            @for (int i = 0; i < Model.PanoramaListId.Count; i++)
-            {
-                <tr>
-                    <td>
-                        <span>
-                            <input type="checkbox" class="checkbox" name="PanoramaListId"
-                                   value="@Model.PanoramaListId[i]" id="@Model.PanoramaListId[i]" />
-                            <label for="@Model.PanoramaListId[i]">
-                                @aaa[i].Name
-                            </label>
-                        </span>
-                    </td>
-
-                </tr>
-            }
-        </table>
+        <div class="container">
+            <div class="list-group col-md-6 col-sm-6">
+                @for (int i = 0; i < Model.PanoramaListId.Count; i++)
+                {
+                    <label class="list-group-item" for="@Model.PanoramaListId[i]">
+                        <input type="checkbox" class="checkbox pull-left" name="PanoramaListId"
+                               value="@Model.PanoramaListId[i]" id="@Model.PanoramaListId[i]" />
+                        @aaa[i].Name
+                        @{
+                            var fullUrl = "/Documents/Panoramas/" + @Model.PanoramaListId[i] + ".jpg";
+                        }
+                        <img src="@fullUrl" class="list-group-item-image" />
+                    </label>
+                            }
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -68,7 +54,7 @@
             </div>
         </div>
     </div>
-            }
+                            }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -76,13 +62,10 @@
 
 
 <script>
-    $("form").on("submit", function(e) {
-
-
+    $("form").on("submit", function (e) {
         if ($("input[name=PanoramaListId]:checked").length <= 1) {
-            alert("NO");
+            alert("Please choose more than 1 panorama images!");
             e.preventDefault();
-            return;
         }
     });
 </script>
