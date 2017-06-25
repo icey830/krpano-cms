@@ -12,6 +12,7 @@ namespace KrpanoCMS.Administration.Models
         public HttpPostedFileBase MediumPicture { get; set; }
 
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public string UserId { get; set; }
         public DateTime AddedOn { get; set; }
